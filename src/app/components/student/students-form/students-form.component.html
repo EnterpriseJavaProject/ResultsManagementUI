@@ -1,0 +1,93 @@
+<mat-toolbar mat-dialog-title *ngIf="addOnlyForm" style="background-color:peru;">  
+  Add Student   
+</mat-toolbar> 
+
+<mat-toolbar mat-dialog-title *ngIf="!addOnlyForm" style="background-color:peru;">  
+Update Student Details  
+</mat-toolbar>
+
+<mat-dialog-content>
+<ng-container>
+       
+    <form [formGroup]="studentForm" >
+      <div >
+ 
+        <mat-form-field class="email-full-width">
+          <mat-label>Full Name</mat-label>
+          <input type="full_name" id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="full_name" required>
+      </mat-form-field>
+      </div>
+      <div >
+      <label id="example-radio-group-label">Gender</label>
+      <mat-radio-group formControlName="gender"
+        aria-labelledby="example-radio-group-label"
+        class="example-radio-group"
+        [(ngModel)]="selectedGender">
+        <mat-radio-button class="example-radio-button"  *ngFor="let gender of genders" [value]="gender">
+          {{gender}}
+        </mat-radio-button>
+      </mat-radio-group>
+    </div>
+    <div>
+      <mat-form-field class="email-full-width">
+        <mat-label>Date of Birth</mat-label>
+        <input type="date_of_birth" id="date_of_birth"  name="date_of_birth" matInput placeholder="Ex. ice@example.com" formControlName="date_of_birth" required>
+    </mat-form-field>
+  </div>
+      <div>
+      <mat-form-field class="email-full-width">
+        <mat-label>Email</mat-label>
+        <input type="email" id="email"  name="email" matInput placeholder="Ex. ice@example.com" formControlName="email" required>
+    </mat-form-field>
+  </div>
+  <div>
+  <mat-form-field class="email-full-width">
+    <mat-label>Contact</mat-label>
+    <input type="contact" id="contact" name="contact" matInput placeholder="Ex. course" formControlName="contact" required>
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="email-full-width">
+      <mat-label>User Type</mat-label>
+      <input type="usertype" id="usertype" name="usertype" matInput placeholder="USertype" formControlName="usertype" required>
+  </mat-form-field>
+</div>
+<div>
+  <mat-form-field class="email-full-width">
+    <mat-label>Student Id</mat-label>
+    <input type="student_id" id="student_id"  name="student_id" matInput placeholder="Ex. 12er33i" formControlName="student_id" required>
+</mat-form-field>
+</div>
+<div>
+<mat-form-field class="email-full-width">
+  <mat-label>Course</mat-label>
+  <input type="course_id" id="course_id" name="course_id" matInput placeholder="Ex. course" formControlName="course_id" required>
+</mat-form-field>
+</div>
+<div>
+<mat-form-field class="email-full-width">
+  <mat-label>Password</mat-label>
+  <input type="password" id="password" name="password" matInput placeholder="Password" formControlName="password" required>
+</mat-form-field>
+</div>
+
+    </form>
+    <div>
+
+    </div>
+ 
+  </ng-container>
+</mat-dialog-content>
+<div class="dialog-actions">
+  <mat-dialog-actions >  
+    <button  mat-raised-button 
+    color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
+    <button  *ngIf="addOnlyForm" mat-raised-button
+    color="primary"  >Add</button>  
+    <button  *ngIf="!addOnlyForm"  mat-raised-button
+    color="primary"  >Update</button>  
+</mat-dialog-actions>
+</div>
+
+  
+  

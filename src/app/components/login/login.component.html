@@ -1,0 +1,39 @@
+<div>
+    <mat-card>
+        <div class="container">
+            <h1 style = "text-align: center;font-weight: bold;">Student Results Management System</h1>
+
+            <h1 style = "text-align: center;">Login</h1>
+
+            <form [formGroup]="loginForm" >
+                <mat-form-field class="email-full-width">
+                    <mat-label>Email</mat-label>
+                    <input type="email" id="email" name="email" matInput placeholder="Ex. ice@example.com" formControlName="email" required>
+                </mat-form-field>
+                <br>
+                
+                <mat-form-field class="password-full-width">
+                    <mat-label>Password</mat-label>
+                    <input type="password" [type]="hide ? 'password' : 'text'" matInput  placeholder="Enter password" formControlName="password">
+                    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'" [attr.aria-pressed]="hide">
+                        <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+                      </button>
+                </mat-form-field>
+
+                <div fxLayout="column" fxLayoutGap="10px" fxLayout.lt-md="column" >
+                    <div> 
+                        <button class="password-full-width" mat-raised-button color="primary" (click)="login()">
+                            Login
+                        </button>
+                    </div>
+    
+                </div>
+
+                <div style = "margin-top: 10px; text-align: center">
+                    <p >Forgot Password</p>
+                </div>
+
+            </form>
+            </div>
+    </mat-card>
+</div>
