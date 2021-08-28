@@ -5,7 +5,7 @@ export const lectureList =[{
     "email": "igraundisson0@yellowbook.com",
     "password": "I36zX0",
     "contact": "7352385817",
-    "usertype": "lecture"
+    "usertype": "staff"
   }, {
     "id": 2,
     "staff_id": "08ff13930",

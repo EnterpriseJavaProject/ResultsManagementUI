@@ -7,6 +7,7 @@ import { Router } from '@angular/router';
 import { ModuleService} from '../services/course-module.service';
 import { CourseModuleFormComponent } from '../course-module-form/course-module-form.component';
 import { CourseModule } from '../interfaces/models';
+import { ConfirmationComponentComponent, ConfirmDialogModel } from '../../confirmation-component/confirmation-component.component';
 
 @Component({
   selector: 'app-course-module-list',
@@ -50,7 +51,7 @@ export class CourseModuleListComponent implements OnInit {
     }
   }
   openInfoDialog(data) {  
-    this.router.navigate(['/course-info'])  }
+    this.router.navigate(['/module-info'])  }
 
     openDialog(data) {  
       // debugger;  
@@ -61,8 +62,8 @@ export class CourseModuleListComponent implements OnInit {
           'top': '5vh',  
           'left': '400px'  
       };  
-      dialogConfig.width = '600px';  
-      dialogConfig.height = '600px';
+      dialogConfig.width = '50vw';  
+      dialogConfig.height = '75vh';
         
       dialogConfig.data = {  
           rowData: data,
@@ -80,8 +81,8 @@ export class CourseModuleListComponent implements OnInit {
           'top': '5vh',  
           'left': '400px'  
       };  
-      dialogConfig.width = '600px';  
-      dialogConfig.height = '600px';
+      dialogConfig.width = '50vw';  
+      dialogConfig.height = '75vh';
         
       dialogConfig.data = {
         type:'add'
@@ -89,22 +90,26 @@ export class CourseModuleListComponent implements OnInit {
       this.dialog.open(CourseModuleFormComponent, dialogConfig);  
     }
 
-    openConfirmDialog(){
-        // const dialogInterface: DialogInterface = {
-        //   dialogHeader: 'Confirm Action',
-        //   dialogContent: ConfirmationComponentComponent,
-        //   cancelButtonLabel: 'No',
-        //   confirmButtonLabel: 'Yes',
-        //   callbackMethod: () => {
-        //     // this.performDialogSubmitMethodOne();
-        //   },
-        // };
-        // this.dialog.open(AppDialogComponent, {
-        //   width: '30vw',
-        //   disableClose:true,
-        //   data: dialogInterface,
-        // }); 
+    openConfirmDialog(data){
+      const upp=(data.module_name).toUpperCase()
+    
+  
+      const message = `Are you sure you want to delete : ` + upp;
+    
+      const dialogData = new ConfirmDialogModel("Confirm Action", message);
+  
+      const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
+        // maxWidth: "400px",
+        data: dialogData
+      });
+  
+      // dialogRef.afterClosed().subscribe(dialogResult => {
+      //   this.result = dialogResult;
+      // }); 
       }
       
+      openUpload(){
+        this.router.navigate(['/upload-grade']) 
+      }
 
 }

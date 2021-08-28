@@ -2,11 +2,15 @@
   Add Student   
 </mat-toolbar> 
 
-<mat-toolbar mat-dialog-title *ngIf="!addOnlyForm" style="background-color:peru;">  
+<mat-toolbar mat-dialog-title *ngIf="updateOnlyForm" style="background-color:peru;">  
 Update Student Details  
 </mat-toolbar>
 
-<mat-dialog-content>
+<mat-toolbar mat-dialog-title *ngIf="addCourseForm" style="background-color:peru;">  
+ Add Student to Course 
+  </mat-toolbar>
+
+<mat-dialog-content *ngIf="!addCourseForm">
 <ng-container>
        
     <form [formGroup]="studentForm" >
@@ -17,23 +21,28 @@ Update Student Details
           <input type="full_name" id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="full_name" required>
       </mat-form-field>
       </div>
-      <div >
-      <label id="example-radio-group-label">Gender</label>
-      <mat-radio-group formControlName="gender"
-        aria-labelledby="example-radio-group-label"
-        class="example-radio-group"
-        [(ngModel)]="selectedGender">
-        <mat-radio-button class="example-radio-button"  *ngFor="let gender of genders" [value]="gender">
-          {{gender}}
-        </mat-radio-button>
-      </mat-radio-group>
-    </div>
-    <div>
-      <mat-form-field class="email-full-width">
+      <div>
+        <label id="example-radio-group-label">Gender</label>
+        <mat-radio-group formControlName="gender"
+          aria-labelledby="example-radio-group-label"
+          class="example-radio-group"
+          [(ngModel)]="selectedGender">
+          <mat-radio-button class="example-radio-button"  *ngFor="let gender of genders" [value]="gender">
+            {{gender}}
+          </mat-radio-button>
+        </mat-radio-group>
+      </div>
+    <div class="datee">
+      <mat-form-field appearance="fill" class="example-full-width" >
         <mat-label>Date of Birth</mat-label>
-        <input type="date_of_birth" id="date_of_birth"  name="date_of_birth" matInput placeholder="Ex. ice@example.com" formControlName="date_of_birth" required>
-    </mat-form-field>
-  </div>
+        <input matInput [matDatepicker]="dp"formControlName="date_of_birth" id="date_of_birth" >
+        <mat-datepicker-toggle matSuffix [for]="dp"></mat-datepicker-toggle>
+        <mat-datepicker #dp ></mat-datepicker>
+      </mat-form-field>
+
+
+    </div>
+  
       <div>
       <mat-form-field class="email-full-width">
         <mat-label>Email</mat-label>
@@ -46,24 +55,20 @@ Update Student Details
     <input type="contact" id="contact" name="contact" matInput placeholder="Ex. course" formControlName="contact" required>
   </mat-form-field>
   </div>
-  <div>
-    <mat-form-field class="email-full-width">
-      <mat-label>User Type</mat-label>
-      <input type="usertype" id="usertype" name="usertype" matInput placeholder="USertype" formControlName="usertype" required>
-  </mat-form-field>
-</div>
+
+
 <div>
   <mat-form-field class="email-full-width">
     <mat-label>Student Id</mat-label>
     <input type="student_id" id="student_id"  name="student_id" matInput placeholder="Ex. 12er33i" formControlName="student_id" required>
 </mat-form-field>
 </div>
-<div>
+<!-- <div>
 <mat-form-field class="email-full-width">
   <mat-label>Course</mat-label>
   <input type="course_id" id="course_id" name="course_id" matInput placeholder="Ex. course" formControlName="course_id" required>
 </mat-form-field>
-</div>
+</div> -->
 <div>
 <mat-form-field class="email-full-width">
   <mat-label>Password</mat-label>
@@ -78,16 +83,42 @@ Update Student Details
  
   </ng-container>
 </mat-dialog-content>
+
+<div *ngIf="addCourseForm">
+  <mat-dialog-content>
+    <ng-container>
+  <form [formGroup]="courseForm">
+    <mat-form-field>
+      <mat-label>Select Course </mat-label>
+      <mat-select formControlName="course" required>
+        <mat-option *ngFor="let classroom of classroom" [value]="classroom.name">
+          {{classroom.name}}
+        </mat-option>
+      </mat-select>
+     
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Select Course Module </mat-label>
+      <mat-select formControlName="module" required>
+        <mat-option *ngFor="let classroom of classroom" [value]="classroom.name">
+          {{classroom.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  </ng-container>
+  </mat-dialog-content>
+  
+
+</div>
 <div class="dialog-actions">
   <mat-dialog-actions >  
-    <button  mat-raised-button 
-    color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
-    <button  *ngIf="addOnlyForm" mat-raised-button
-    color="primary"  >Add</button>  
-    <button  *ngIf="!addOnlyForm"  mat-raised-button
-    color="primary"  >Update</button>  
+    <button  mat-raised-button color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
+    <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()"  >Add</button>  
+    <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary"  >Update</button>  
+    <button  *ngIf="addCourseForm"  mat-raised-button color="primary"  >Add Course</button> 
 </mat-dialog-actions>
 </div>
 
-  
   

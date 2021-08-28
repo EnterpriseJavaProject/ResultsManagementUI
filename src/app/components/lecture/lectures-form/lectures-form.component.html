@@ -2,11 +2,14 @@
   Add Staff   
 </mat-toolbar> 
 
-<mat-toolbar mat-dialog-title *ngIf="!addOnlyForm" style="background-color:peru;">  
+<mat-toolbar mat-dialog-title *ngIf="updateOnlyForm" style="background-color:peru;">  
 Update Staff Details  
 </mat-toolbar>
+<mat-toolbar mat-dialog-title *ngIf="addCourseForm" style="background-color:peru;">  
+  Add  Course Lecturer
+   </mat-toolbar>
 
-<mat-dialog-content>
+<mat-dialog-content  *ngIf="!addCourseForm">
 <ng-container>
        
     <form [formGroup]="lecturerForm" >
@@ -63,16 +66,44 @@ Update Staff Details
  
   </ng-container>
 </mat-dialog-content>
+
+<div *ngIf="addCourseForm">
+  <mat-dialog-content>
+    <ng-container>
+  <form [formGroup]="courseForm">
+    <mat-form-field>
+      <mat-label>Select Course </mat-label>
+      <mat-select formControlName="course" required>
+        <mat-option *ngFor="let classroom of classroom" [value]="classroom.name">
+          {{classroom.name}}
+        </mat-option>
+      </mat-select>
+     
+    </mat-form-field>
+    <br>
+    <mat-form-field>
+      <mat-label>Select Course Module </mat-label>
+      <mat-select formControlName="module" required>
+        <mat-option *ngFor="let classroom of classroom" [value]="classroom.name">
+          {{classroom.name}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </form>
+  </ng-container>
+  </mat-dialog-content>
+  
+
+</div>
 <div class="dialog-actions">
   <mat-dialog-actions >  
-    <button  mat-raised-button 
-    color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
-    <button (click)="onAdd()" *ngIf="addOnlyForm" mat-raised-button
-    color="primary"  >Add</button>  
-    <button  *ngIf="!addOnlyForm"  mat-raised-button
-    color="primary"  >Update</button>  
+    <button  mat-raised-button color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
+    <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()"  >Add</button>  
+    <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary"  >Update</button>  
+    <button  *ngIf="addCourseForm"  mat-raised-button color="primary"  >Add Lecturer</button> 
 </mat-dialog-actions>
 </div>
+
 
   
   

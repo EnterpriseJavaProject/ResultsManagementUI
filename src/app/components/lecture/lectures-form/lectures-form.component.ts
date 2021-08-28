@@ -11,8 +11,12 @@ import { LecturesListComponent } from '../lectures-list/lectures-list.component'
 export class LecturesFormComponent implements OnInit {
   @Input()
   addOnlyForm: boolean = false;
+  addCourseForm: boolean = false;
+  updateOnlyForm:boolean = false;
 
   lecturerForm:FormGroup;
+  courseForm:FormGroup;
+
   lecturer:Staff;
 condata:[];
 tyye:any
@@ -34,12 +38,18 @@ tyye:any
       course_id:['', [Validators.required]],
       usertype:['', [Validators.required]],
 
-
-
     });
-    if(this.tyye === 'add'){
+    this.courseForm = this.fb.group({
+      course_name:['', [Validators.required]],
+      module_name:['', [Validators.required]]
+    })
+   if(this.tyye === 'add'){
       this.addOnlyForm = true
-    }
+    }else if(this.tyye === 'course'){
+      this.addCourseForm = true
+    }else if(this.tyye === 'update'){
+      this.updateOnlyForm = true
+    }   
   }
   close() {  
     this.dialogRef.close();  

@@ -12,11 +12,15 @@ import { StudentsListComponent } from '../students-list/students-list.component'
 export class StudentsFormComponent implements OnInit {
   @Input()
   addOnlyForm: boolean = false;
+  addCourseForm: boolean = false;
+  updateOnlyForm:boolean = false;
 
+  endtoday = new Date();
   selectedGender: string;
   genders: string[] = ['Male', 'Female'];
 
  studentForm:FormGroup;
+ courseForm:FormGroup;
  student:Student;
  condata:[];
  tyye:any
@@ -38,25 +42,38 @@ export class StudentsFormComponent implements OnInit {
       student_id:['', [Validators.required]],
       date_of_birth:['', [Validators.required]],
       gender:['', [Validators.required]],
-      usertype:['', [Validators.required]],
+      usertype:['Student', [Validators.required]],
       password:['', [Validators.required]],
       course_id:['', [Validators.required]],
-
-
-
     });
+    this.courseForm = this.fb.group({
+      course_name:['', [Validators.required]],
+      module_name:['', [Validators.required]]
+    })
    if(this.tyye === 'add'){
       this.addOnlyForm = true
-    }  }
+    }else if(this.tyye === 'course'){
+      this.addCourseForm = true
+    }else if(this.tyye === 'update'){
+      this.updateOnlyForm = true
+    }   
+  }
   close() {  
     this.dialogRef.close();  
 }  
 
   ngAfterViewInit(){
     if(this.condata){
-
       this.studentForm.patchValue(this.condata)
-  
     }
+  }
+
+  
+  onAdd(){
+    const data = this.studentForm.value;
+    const newAdd=[];
+    newAdd.push(data)
+    console.log(newAdd)
+
   }
 }

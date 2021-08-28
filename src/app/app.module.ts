@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms'
 import { FormsModule } from '@angular/forms';
+import { DatePipe } from '@angular/common';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -25,6 +26,9 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
 import { MatDialogModule,MatDialogRef } from '@angular/material/dialog';
 import {MatRadioModule,MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio'; 
+import {MatDatepickerModule} from '@angular/material/datepicker'
+import {MatNativeDateModule} from '@angular/material/core';
+import { MatMomentDateModule } from "@angular/material-moment-adapter";
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -46,6 +50,8 @@ import { CourseModuleListComponent } from './components/course-module/course-mod
 import { CourseModuleFormComponent } from './components/course-module/course-module-form/course-module-form.component';
 import { CourseModuleInfoComponent } from './components/course-module/course-module-info/course-module-info.component';
 import { ConfirmationComponentComponent } from './components/confirmation-component/confirmation-component.component';
+import { UploadGradeComponent } from './components/upload-grade/upload-grade.component';
+import { RecordsComponent } from './components/records/records.component';
 
 @NgModule({
   declarations: [
@@ -66,7 +72,9 @@ import { ConfirmationComponentComponent } from './components/confirmation-compon
     CourseModuleListComponent,
     CourseModuleFormComponent,
     CourseModuleInfoComponent,
-    ConfirmationComponentComponent
+    ConfirmationComponentComponent,
+    UploadGradeComponent,
+    RecordsComponent
   ],
   imports: [
     BrowserModule,
@@ -92,10 +100,13 @@ import { ConfirmationComponentComponent } from './components/confirmation-compon
     MatSidenavModule,
     MatDialogModule,
     MatRadioModule,
-    FormsModule
+    FormsModule,
+    MatDatepickerModule,
+    MatNativeDateModule,
+    MatMomentDateModule
 
   ],
-  providers: [
+  providers: [MatDatepickerModule,DatePipe,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', floatLabel : 'auto' }},
     {
       provide: MAT_RADIO_DEFAULT_OPTIONS,

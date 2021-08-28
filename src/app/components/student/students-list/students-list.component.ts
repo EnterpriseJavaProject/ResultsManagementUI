@@ -8,6 +8,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StudentsFormComponent } from '../students-form/students-form.component';
+import { ConfirmationComponentComponent, ConfirmDialogModel } from '../../confirmation-component/confirmation-component.component';
 
 @Component({
   selector: 'app-students-list',
@@ -70,7 +71,7 @@ export class StudentsListComponent implements OnInit {
         
       dialogConfig.data = {  
           rowData: data,
-          type:'edit'
+          type:'update'
       };  
       this.dialog.open(StudentsFormComponent, dialogConfig);  
     }
@@ -88,16 +89,48 @@ export class StudentsListComponent implements OnInit {
       dialogConfig.height = '600px';
         
       dialogConfig.data = {
-        type:'add'
+        type:'add',
+        
       }  
       this.dialog.open(StudentsFormComponent, dialogConfig);  
     }
 
-  openConfirmDialog(){
-      
+    openCourseDialog(data) {  
+      // debugger;  
+      const dialogConfig = new MatDialogConfig();  
+      dialogConfig.disableClose = true;  
+      dialogConfig.autoFocus = true;  
+      dialogConfig.position = {  
+          'top': '18vh',  
+          'left': '500px'  
+      };  
+      dialogConfig.width = '22vw';  
+      dialogConfig.height = '50vh';
+        
+      dialogConfig.data = {
+        type:'course',
+        rowData: data,
+      }  
+      this.dialog.open(StudentsFormComponent, dialogConfig);  
+    }
+  openConfirmDialog(data){
+    const upp=(data.full_name).toUpperCase()
+  
+
+    const message = `Are you sure you want to delete : ` + upp;
+  
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+
+    const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
+      // maxWidth: "400px",
+      data: dialogData
+    });
+
+    // dialogRef.afterClosed().subscribe(dialogResult => {
+    //   this.result = dialogResult;
+    // }); 
     }
     
 
-
-
+   
 }

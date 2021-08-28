@@ -8,6 +8,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { LecturesFormComponent } from '../lectures-form/lectures-form.component';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { ConfirmationComponentComponent, ConfirmDialogModel } from '../../confirmation-component/confirmation-component.component';
 
 
 
@@ -18,6 +19,7 @@ import { Router } from '@angular/router';
 })
 export class LecturesListComponent implements OnInit, AfterViewInit  {
   data:any[]
+  isLecturer:boolean=false
 
   
   
@@ -33,11 +35,22 @@ export class LecturesListComponent implements OnInit, AfterViewInit  {
 
   ngOnInit(): void {
     this.loadData();
+    // console.log(this.data.map(({id, usertype}) => ({id, usertype})))
 
   }
   loadData = () => {
   this.data= this.lecturerService.getAllLecturers();
-   this.dataSource = new MatTableDataSource(this.data)
+   this.dataSource = new MatTableDataSource(this.data);
+  }
+
+  getElement(){
+    var obj = this.data;
+
+    Object.entries(obj).forEach(
+      ([key, value]) => 
+   
+      console.log(key, value.usertype)
+  );
   }
 
   ngAfterViewInit() {
@@ -72,7 +85,7 @@ openInfoDialog(data) {
     dialogConfig.autoFocus = true;  
     dialogConfig.position = {  
         'top': '5vh',  
-        'left': '400px'  
+        'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
     dialogConfig.height = '600px';
@@ -92,7 +105,7 @@ openInfoDialog(data) {
     dialogConfig.autoFocus = true;  
     dialogConfig.position = {  
         'top': '5vh',  
-        'left': '400px'  
+        'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
     dialogConfig.height = '600px';
@@ -102,11 +115,38 @@ openInfoDialog(data) {
     }  
     this.dialog.open(LecturesFormComponent, dialogConfig);  
   }
+  openCourseDialog(data) {  
+    // debugger;  
+    const dialogConfig = new MatDialogConfig();  
+    dialogConfig.disableClose = true;  
+    dialogConfig.autoFocus = true;  
+    dialogConfig.position = {  
+        'top': '18vh',  
+        'left': '500px'  
+    };  
+    dialogConfig.width = '22vw';  
+    dialogConfig.height = '50vh';
+    dialogConfig.data = {
+      type:'course',
+      rowData: data,
+    }  
+    this.dialog.open(LecturesFormComponent, dialogConfig);  
+  }
+  openConfirmDialog(data){
+    const upp=(data.full_name).toUpperCase()
+    const message = `Are you sure you want to delete : ` + upp;
+  
+    const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
-  openConfirmDialog(rowData){
-   
+    const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
+      // maxWidth: "400px",
+      data: dialogData
+    });
+
+    // dialogRef.afterClosed().subscribe(dialogResult => {
+    //   this.result = dialogResult;
+    // }); 
     }
-    
 
 
 }
