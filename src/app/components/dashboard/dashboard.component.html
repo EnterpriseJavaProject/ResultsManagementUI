@@ -1,1 +1,20 @@
-<p>dashboard works!</p>
+<mat-card class="example-card">
+
+ 
+
+<div class="top-cards">
+ 
+    <ng-container *ngFor="let dashItem of cardsData">
+      <div class="top-cards">
+        <app-dashboard-cards
+        [messages]="dashItem.messages" 
+         [headerIcon]="dashItem.headerIcon"
+         [headerColor]="dashItem.headerColor"
+         >
+       </app-dashboard-cards>
+      </div>
+      
+    </ng-container>
+
+</div>
+</mat-card>

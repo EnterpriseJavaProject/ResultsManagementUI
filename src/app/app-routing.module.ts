@@ -4,6 +4,7 @@ import { CourseModuleInfoComponent } from './components/course-module/course-mod
 import { CourseModuleListComponent } from './components/course-module/course-module-list/course-module-list.component';
 import { CoursesInfoComponent } from './components/course/courses-info/courses-info.component';
 import { CoursesListComponent } from './components/course/courses-list/courses-list.component';
+import { DashboardComponent } from './components/dashboard/dashboard.component';
 import { LecturesInfoComponent } from './components/lecture/lectures-info/lectures-info.component';
 import { LecturesListComponent } from './components/lecture/lectures-list/lectures-list.component';
 import { LoginComponent } from './components/login/login.component';
@@ -24,6 +25,7 @@ const routes: Routes = [
   {path: 'module-list' , component: CourseModuleListComponent , pathMatch: 'full'},
   {path: 'upload-grade' , component: UploadGradeComponent , pathMatch: 'full'},
   {path: 'records' , component: RecordsComponent , pathMatch: 'full'},
+  {path: 'dashboard' , component: DashboardComponent , pathMatch: 'full'},
 
 
   { path: '', redirectTo: '/login', pathMatch: 'full' },

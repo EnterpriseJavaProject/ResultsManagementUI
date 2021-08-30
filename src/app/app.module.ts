@@ -8,6 +8,7 @@ import { HTTP_INTERCEPTORS } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms'
 import { FormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common';
+import { FontAwesomeModule } from '@fortawesome/angular-fontawesome';
 
 import { MatStepperModule } from '@angular/material/stepper';
 import { MatButtonModule } from '@angular/material/button';
@@ -52,6 +53,7 @@ import { CourseModuleInfoComponent } from './components/course-module/course-mod
 import { ConfirmationComponentComponent } from './components/confirmation-component/confirmation-component.component';
 import { UploadGradeComponent } from './components/upload-grade/upload-grade.component';
 import { RecordsComponent } from './components/records/records.component';
+import { DashboardCardsComponent } from './components/dashboard-cards/dashboard-cards.component';
 
 @NgModule({
   declarations: [
@@ -74,7 +76,8 @@ import { RecordsComponent } from './components/records/records.component';
     CourseModuleInfoComponent,
     ConfirmationComponentComponent,
     UploadGradeComponent,
-    RecordsComponent
+    RecordsComponent,
+    DashboardCardsComponent
   ],
   imports: [
     BrowserModule,
@@ -103,7 +106,8 @@ import { RecordsComponent } from './components/records/records.component';
     FormsModule,
     MatDatepickerModule,
     MatNativeDateModule,
-    MatMomentDateModule
+    MatMomentDateModule,
+    FontAwesomeModule
 
   ],
   providers: [MatDatepickerModule,DatePipe,
