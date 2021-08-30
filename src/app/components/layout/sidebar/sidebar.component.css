@@ -29,8 +29,8 @@ mat-sidenav {
     align-items: center;
     width: calc(100vw - 300px);
 
-    font-size: 2rem;
-    color: lightgray;
+    font-size: 5rem;
+    /* color: lightgray; */
 }
 
 mat-sidenav-container {

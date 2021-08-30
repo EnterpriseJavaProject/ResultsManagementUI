@@ -1,7 +1,7 @@
 .example-card {
     width: calc(100vw - 310px);
-    height: 100%;
-    margin-top: 280px;
+    // height: 100%;
+    // margin-top: 280px;
   /* margin-left: 15%;
   top: 40px; */
   /* margin-top: 4%; */
@@ -12,3 +12,6 @@
     flex-direction: row;
 }
 
+.card{
+  width: 300px;
+}
