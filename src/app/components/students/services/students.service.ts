@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { ResourceService } from 'src/app/services/resources';
 
-const ENDPOINT = "students"
+const ENDPOINT = "student"
 
 @Injectable({
   providedIn: 'root'
@@ -19,5 +19,6 @@ export class StudentsService extends ResourceService {
     let studentsArray = studentsList;
     return studentsArray;
   }
+
 
 }

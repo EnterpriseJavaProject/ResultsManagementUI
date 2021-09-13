@@ -85,11 +85,11 @@ openInfoDialog(data) {
     dialogConfig.disableClose = true;  
     dialogConfig.autoFocus = true;  
     dialogConfig.position = {  
-        'top': '5vh',  
+        'top': '10vh',  
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '600px';
+    dialogConfig.height = '650px';
       
     dialogConfig.data = {  
         rowData: data,
@@ -105,11 +105,11 @@ openInfoDialog(data) {
     dialogConfig.disableClose = true;  
     dialogConfig.autoFocus = true;  
     dialogConfig.position = {  
-        'top': '5vh',  
-        'left': '30vw'  
-    };  
-    dialogConfig.width = '600px';  
-    dialogConfig.height = '600px';
+      'top': '10vh',  
+      'left': '30vw'  
+  };  
+  dialogConfig.width = '600px';  
+  dialogConfig.height = '650px';
       
     dialogConfig.data = {
       type:'add'
@@ -123,10 +123,10 @@ openInfoDialog(data) {
     dialogConfig.autoFocus = true;  
     dialogConfig.position = {  
       'top': '19vh',  
-      'left': '40vw'
+      'left': '35vw'
     };  
     dialogConfig.width = '30vw';  
-    dialogConfig.height = '55vh';
+    dialogConfig.height = '350px';
     dialogConfig.data = {
       type:'course',
       rowData: data,

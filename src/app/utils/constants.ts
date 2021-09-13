@@ -77,7 +77,13 @@ export const loginAlert = ()=>{
     showConfirmButton:false,
     timer:1500})
 }
-
+export const successAlert = (text)=>{
+  Swal.fire({
+    icon: 'success',
+    text: `${text}`,
+    showConfirmButton:false,
+    timer:1500})
+}
 export const errorAlert = (hello)=>{
   Swal.fire({
     icon: 'error',

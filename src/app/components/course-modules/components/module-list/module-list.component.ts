@@ -65,11 +65,11 @@ export class ModuleListComponent implements OnInit {
       dialogConfig.disableClose = true;  
       dialogConfig.autoFocus = true;  
       dialogConfig.position = {  
-          'top': '5vh',  
-          'left': '400px'  
-      };  
-      dialogConfig.width = '50vw';  
-      dialogConfig.height = '75vh';
+        'top': '10vh',  
+        'left': '30vw'  
+    };  
+    dialogConfig.width = '600px';  
+    dialogConfig.height = '500px';
         
       dialogConfig.data = {  
           rowData: data,
@@ -84,11 +84,11 @@ export class ModuleListComponent implements OnInit {
       dialogConfig.disableClose = true;  
       dialogConfig.autoFocus = true;  
       dialogConfig.position = {  
-          'top': '5vh',  
-          'left': '400px'  
-      };  
-      dialogConfig.width = '50vw';  
-      dialogConfig.height = '75vh';
+        'top': '10vh',  
+        'left': '30vw'  
+    };  
+    dialogConfig.width = '600px';  
+    dialogConfig.height = '500px';
         
       dialogConfig.data = {
         type:'add'

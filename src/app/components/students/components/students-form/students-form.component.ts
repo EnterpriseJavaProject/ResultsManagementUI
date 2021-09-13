@@ -4,6 +4,8 @@ import { Student } from '../../interfaces/models';
 import { MatDialogConfig,MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
 import { StudentsListComponent } from '../students-list/students-list.component';
 import { CustomValidators, ConfirmValidParentMatcher, regExps, errorMessages } from '../../../../services/custom-validation'; 
+import { StudentsService } from '../../services/students.service';
+import { successAlert } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-students-form',
@@ -47,6 +49,7 @@ course_modules = [
 ];
   constructor(    
     private fb: FormBuilder,
+    private studentService:StudentsService,
     private dialogRef: MatDialogRef<StudentsListComponent>,
     @Inject(MAT_DIALOG_DATA) data,
   ) {
@@ -62,9 +65,8 @@ course_modules = [
       student_id:['', [Validators.required]],
       date_of_birth:['', [Validators.required]],
       gender:['', [Validators.required]],
-      usertype:['Student', [Validators.required]],
+      // usertype:['Student'],
       password:['', [Validators.required]],
-      course_id:['', [Validators.required]],
     });
     this.courseForm = this.fb.group({
       course_name:['', [Validators.required]],
@@ -90,12 +92,37 @@ course_modules = [
     }
   }
 
-  
   onAdd(){
-    const data = this.studentForm.value;
-    const newAdd=[];
-    newAdd.push(data)
-    console.log(newAdd)
+    // if(this.studentForm.valid){
+      const formValues = this.studentForm.getRawValue();
+      const student = {
+        full_name: formValues.full_name,
+        contact: formValues.contact,
+        student_id: formValues.student_id,
+        date_of_birth: formValues. date_of_birth,
+        gender: formValues.gender,
+        usertype: formValues.usertype,
+        address:formValues.email
+       }
 
-  }
+      if (this.student?.id){ // edit
+        this.studentService.updateResource(student, this.student.id).subscribe(
+           (d: any) => {
+             successAlert('Student Updated Successfully')
+          }
+        )
+      }
+      else{
+        this.studentService.storeResource(student,"student/saveStudent").subscribe(
+          (d: any) => {
+            successAlert('Student Created Successfully')
+
+          }
+        )
+      }
+
+    }
+  // }
+  
+
 }
