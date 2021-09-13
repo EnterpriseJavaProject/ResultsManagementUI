@@ -1,0 +1,9 @@
+.dialog-actions{
+    float: right;
+}
+mat-toolbar{
+  height: 45px;
+}
+/* mat-dialog-content{
+    font-weight: bold;
+} */

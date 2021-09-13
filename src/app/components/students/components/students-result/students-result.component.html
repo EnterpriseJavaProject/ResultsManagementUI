@@ -1,0 +1,43 @@
+<div id="content" #content>
+
+
+    <h1 style="text-align: center;">Student Result Details</h1>
+    
+    <div class="stud-info">
+        <span>Student Name :</span><br>
+        <span>Student ID :</span><br>
+        <span>Course Name :</span><br>
+        <span>Course Code :</span>
+    </div>
+    <br>
+    <div> 
+        <button id="button" #button class="print-button" data-html2canvas-ignore="true" mat-raised-button color="primary" (click)="openPDF()">
+            <mat-icon>printer</mat-icon>
+            Print
+        </button>
+    </div>
+    <br>
+    <br>
+    <br>
+    <div class="table-div">
+    
+        <table  class="rtable">
+            <th style="width: 10px;">#</th>
+            <th>Module Name</th>
+            <th>Module Code</th>
+            <th>Total Score </th>
+            <th>Grade</th>
+            <tr *ngFor="let item of Data"> 
+                <td style="width: 10px;"></td>   
+                <th>{{item.module_name}}</th>    
+                <th>{{item.module_code}}</th>    
+                <th>{{item.score}}</th>    
+                <th>{{item.grade}}</th>    
+    
+            </tr>
+          
+          
+        </table>
+    </div>
+    
+    </div>

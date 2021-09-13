@@ -1,0 +1,32 @@
+
+  <h1>Dashboard</h1>
+
+ 
+  <ng-container *ngFor="let dashItem of cardsData">
+    <div class="dive">
+      <app-dashboard-cards
+      [messages]="dashItem.messages" 
+       [headerIcon]="dashItem.headerIcon"
+       [headerColor]="dashItem.headerColor"
+       >
+     </app-dashboard-cards>
+    </div>
+    
+  </ng-container>
+
+  <ngx-charts-bar-vertical 
+  [view]="[1000,400]"
+  [results]="saleData"
+  [xAxisLabel]="'Courses'"
+  [legendTitle]="'Students Courses Chart'"
+  [yAxisLabel]="'Students'"
+  [legend]="true"
+  [showXAxisLabel]="true"
+  [showYAxisLabel]="true"
+  [xAxis]="true"
+  [yAxis]="true"
+  [gradient]="true">
+</ngx-charts-bar-vertical>
+
+
+

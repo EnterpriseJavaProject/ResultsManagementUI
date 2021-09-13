@@ -1,0 +1,33 @@
+.example-card {
+    width: calc(100vw - 310px);
+    height: 100%;
+    margin-top: 70px;
+  /* margin-left: 15%;
+  top: 40px; */
+  /* margin-top: 4%; */
+  /* margin-bottom: 2%; */
+  }
+.title{
+    margin-top: 40px;
+  
+}
+.imgcard{
+    width:100px;
+    height:300px
+
+}
+.details{
+    float: right;
+    margin-top: 40px;
+    margin-right: 250px;
+} 
+.details >p{
+    font-size: 22px;
+}
+table {
+    width: 100%;
+  /* margin-left: 15%;
+  top: 40px; */
+  /* margin-top: 4%; */
+  /* margin-bottom: 2%; */
+  }

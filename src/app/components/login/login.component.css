@@ -1,0 +1,42 @@
+.home{
+    overflow: hidden;
+    background-color: #f2f2f2;
+    height: 100%;
+  }
+  
+  .flexb{
+    margin-left: 3vw;
+    display: flex;
+    flex-direction: row;
+    margin-top: 25vh; 
+    height: 400px;
+  
+  }
+  .card1{
+    height: 140px;
+  width: 26%;
+    /* margin-left: 2vw;
+    margin-top: 20vh; */
+  }
+  
+  .card2{
+    height: 280px;
+    width: 26%;
+    margin-left: 33vw;
+      /* margin-left: 48vw;
+      margin-top: 20vh; */
+  }
+  .example-form {
+      min-width: 250px;
+      max-width: 500px;
+      width: 100%;
+    }
+    
+    .email-full-width {
+      width: 100%;
+    }
+    
+    .password-full-width {
+      width: 100%;
+    }
+    

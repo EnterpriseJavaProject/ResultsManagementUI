@@ -1,0 +1,14 @@
+.example-card {
+    width: calc(100vw - 310px);
+ 
+}
+.top-card{
+    display: flex;
+    flex-direction: row;
+}
+
+
+.dive{
+display:inline-flex;
+margin: 10px;
+}

@@ -1,0 +1,22 @@
+
+<mat-toolbar mat-dialog-title  style="background-color:peru;">  
+    {{title}}  </mat-toolbar> 
+ 
+  
+  <div >
+      <mat-dialog-content>
+        {{message}}
+      </mat-dialog-content>
+    <!-- <p>{{message}}</p> -->
+  </div>
+  
+ 
+  <div class="dialog-actions">
+    <mat-dialog-actions >  
+      <button  mat-raised-button 
+      color="warn"  (click)="onDismiss()">No</button>  &nbsp;&nbsp;
+      <button   mat-raised-button (click)="onConfirm()"
+      color="primary"  >Yes</button>  
+  
+  </mat-dialog-actions>
+  </div>
