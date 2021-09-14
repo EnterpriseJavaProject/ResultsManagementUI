@@ -35,7 +35,7 @@ errors = errorMessages;
  studentForm:FormGroup;
  courseForm:FormGroup;
  student:Student;
- condata:[];
+ condata:any;
  tyye:any
  courses = [
   { id: 1, name: "WEB TECH" },
@@ -50,10 +50,11 @@ course_modules = [
   constructor(    
     private fb: FormBuilder,
     private studentService:StudentsService,
+    private config : MatDialogConfig,
     private dialogRef: MatDialogRef<StudentsListComponent>,
     @Inject(MAT_DIALOG_DATA) data,
   ) {
-    this.condata = data.rowData,
+    this.condata = data,
   this.tyye=data.type }
 
   
@@ -61,12 +62,10 @@ course_modules = [
     this.studentForm =  this.fb.group({
       full_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       contact: ['', [Validators.minLength(10),Validators.maxLength(10),Validators.required]],
-      email:['', [Validators.email,Validators.required]],
+      address:['', [Validators.email,Validators.required]],
       student_id:['', [Validators.required]],
       date_of_birth:['', [Validators.required]],
       gender:['', [Validators.required]],
-      // usertype:['Student'],
-      password:['', [Validators.required]],
     });
     this.courseForm = this.fb.group({
       course_name:['', [Validators.required]],
@@ -81,48 +80,67 @@ course_modules = [
       this.updateOnlyForm = true
     } 
 
+
   }
   close() {  
     this.dialogRef.close();  
 }  
 
-  ngAfterViewInit(){
-    if(this.condata){
-      Promise.resolve().then(()=>  this.studentForm.patchValue(this.condata))
+
+
+  ngAfterViewInit(): void {
+
+    if(this.condata?.id){
+      this.student = {...this.condata};
+      const formValues : any= {...this.student};
+      Promise.resolve().then(()=>  this.studentForm.patchValue(formValues))
     }
+
   }
 
+//   public findInvalidControls() {
+//     const invalid = [];
+//     const controls = this.studentForm.controls;
+//     for (const name in controls) {
+//         if (controls[name].invalid) {
+//             invalid.push(name);
+//         }
+//     }
+//       console.log(invalid)
+// }
+
   onAdd(){
-    // if(this.studentForm.valid){
+    if(this.studentForm.valid){
       const formValues = this.studentForm.getRawValue();
-      const student = {
+      const studentData = {
         full_name: formValues.full_name,
         contact: formValues.contact,
         student_id: formValues.student_id,
         date_of_birth: formValues. date_of_birth,
         gender: formValues.gender,
-        usertype: formValues.usertype,
-        address:formValues.email
+        usertype: 'Student',
+        address:formValues.address
        }
 
       if (this.student?.id){ // edit
-        this.studentService.updateResource(student, this.student.id).subscribe(
+        this.studentService.updateResource(studentData, this.student.id,"student/updateStudent").subscribe(
            (d: any) => {
+             this.close()
              successAlert('Student Updated Successfully')
           }
         )
       }
       else{
-        this.studentService.storeResource(student,"student/saveStudent").subscribe(
+        this.studentService.storeResource(studentData,"student/saveStudent").subscribe(
           (d: any) => {
+            this.close()
             successAlert('Student Created Successfully')
-
           }
         )
       }
 
     }
-  // }
+   }
   
 
 }

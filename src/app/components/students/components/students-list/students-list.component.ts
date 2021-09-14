@@ -17,14 +17,13 @@ import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/comp
   styleUrls: ['./students-list.component.css']
 })
 export class StudentsListComponent implements OnInit {
-  cardsData: CardItem[] = [
-    { messages:[{headerMessage:'Total Students',headerValue:'14'} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
-    { messages:[{headerMessage: 'Active Students',headerValue:'10'} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
-    { messages:[{headerMessage: 'Inactive Students',headerValue:'10'} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
 
-  ];
+
+  totalStudent:any;
+  cardsData:CardItem[];
+
   data:any[]
-  displayedColumns: string[] = ['student_id', 'full_name', 'email', 'course','actions'];
+  displayedColumns: string[] = ['student_id', 'full_name', 'address', 'course','actions'];
   dataSource: MatTableDataSource<Student>=new MatTableDataSource([]);
 
   constructor(private studentService:StudentsService, private router:Router,public dialog: MatDialog) { }
@@ -34,12 +33,30 @@ export class StudentsListComponent implements OnInit {
   ngOnInit(): void {
     this.loadData();
 
-  }
-  loadData = () => {
-    this.data= this.studentService.getAllStudents();
-     this.dataSource = new MatTableDataSource(this.data)
-    }
 
+  }
+  // loadData = () => {
+  //   this.data= this.studentService.getAllStudents();
+  //    this.dataSource = new MatTableDataSource(this.data)
+  //   }
+
+    loadData = () => {
+
+      this.studentService.getAllStudent().subscribe(stdudents => {
+        this.data = stdudents;
+        this.totalStudent = this.data.length
+        this.dataSource = new MatTableDataSource(this.data)
+        this.cardsData= [
+          { messages:[{headerMessage:'Total Students',headerValue:(this.totalStudent).toString()} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
+          { messages:[{headerMessage: 'Active Students',headerValue:'10'} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
+          { messages:[{headerMessage: 'Inactive Students',headerValue:'10'} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
+      
+        ];
+      });
+
+  
+      
+    }
 
     ngAfterViewInit() {
       if(this.dataSource){
@@ -64,7 +81,26 @@ export class StudentsListComponent implements OnInit {
 
 
 
-    openDialog(data) {  
+    // openDialog(data) {  
+    //   // debugger;  
+    //   const dialogConfig = new MatDialogConfig();  
+    //   dialogConfig.disableClose = true;  
+    //   dialogConfig.autoFocus = true;  
+    //   dialogConfig.position = {  
+    //       'top': '10vh',  
+    //       'left': '30vw'  
+    //   };  
+    //   dialogConfig.width = '600px';  
+    //   dialogConfig.height = '650px';
+        
+    //   dialogConfig.data = {  
+    //       rowData: data,
+    //       type:'update'
+    //   };  
+    //   this.dialog.open(StudentsFormComponent, dialogConfig);  
+    // }
+
+    openDialog(data:Student) {  
       // debugger;  
       const dialogConfig = new MatDialogConfig();  
       dialogConfig.disableClose = true;  
@@ -77,11 +113,12 @@ export class StudentsListComponent implements OnInit {
       dialogConfig.height = '650px';
         
       dialogConfig.data = {  
-          rowData: data,
+          ...data,
           type:'update'
       };  
       this.dialog.open(StudentsFormComponent, dialogConfig);  
     }
+
 
     openAddDialog() {  
       // debugger;  

@@ -34,7 +34,7 @@ import {MatPaginatorModule } from '@angular/material/paginator';
 import { MatInputModule } from '@angular/material/input';
 import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatDividerModule } from '@angular/material/divider';
-import { MatDialogModule,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialogConfig, MatDialogModule,MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import {MatRadioModule,MAT_RADIO_DEFAULT_OPTIONS} from '@angular/material/radio'; 
 import {MatDatepickerModule} from '@angular/material/datepicker'
 import {MatNativeDateModule} from '@angular/material/core';
@@ -142,6 +142,10 @@ import { AddModuleComponent } from './components/courses/components/add-module/a
   },
     {
       provide: MatDialogRef,
+      useValue: {}
+    },
+    {
+      provide: MatDialogConfig,
       useValue: {}
     },
     { 

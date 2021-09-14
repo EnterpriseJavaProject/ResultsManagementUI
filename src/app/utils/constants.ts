@@ -82,12 +82,16 @@ export const successAlert = (text)=>{
     icon: 'success',
     text: `${text}`,
     showConfirmButton:false,
-    timer:1500})
+    timer:1500}).then(function(){ 
+      window.location.reload();
+  })
 }
 export const errorAlert = (hello)=>{
   Swal.fire({
     icon: 'error',
     text: `${hello} Occured`,
     showConfirmButton:false,
-    timer:1500}) 
+    timer:1500}).then(function(){ 
+      window.location.reload();
+  }) 
 }

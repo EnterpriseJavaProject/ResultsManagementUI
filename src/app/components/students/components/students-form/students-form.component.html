@@ -28,14 +28,7 @@
             <mat-radio-button value="male">Male</mat-radio-button>&nbsp;&nbsp;
             <mat-radio-button value="female">Female</mat-radio-button>
           </mat-radio-group>
-          <!-- <label id="example-radio-group-label">Gender</label>
-          <mat-radio-group formControlName="gender"
-            class="example-radio-group"
-            [(ngModel)]="selectedGender">
-            <mat-radio-button class="example-radio-button"  *ngFor="let gender of genders"  [checked]="gender.checked" [value]="gender.name">
-              {{gender.name}}
-            </mat-radio-button> -->
-          <!-- </mat-radio-group> -->
+      
         </div>
       <div class="datee">
         <mat-form-field appearance="fill"  style="width: 100%;" >
@@ -51,7 +44,7 @@
         <div>
         <mat-form-field class="email-full-width">
           <mat-label>Email</mat-label>
-        <input type="email" id="email"  name="email" matInput placeholder="Ex. ice@example.com" formControlName="email" required>
+        <input type="email" id="email"  name="email" matInput placeholder="Ex. ice@example.com" formControlName="address" required>
         <mat-error>
 					{{errors.email}}
 				</mat-error>
@@ -123,8 +116,8 @@
   <div class="dialog-actions">
     <mat-dialog-actions >  
       <button  mat-raised-button color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
-      <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()"  >Add</button>  
-      <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary"  >Update</button>  
+      <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()" [disabled]="studentForm.invalid" >Add</button>  
+      <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary" (click)="onAdd()"  >Update</button>  
       <button  *ngIf="addCourseForm"  mat-raised-button color="primary" [disabled]="courseForm.invalid" >Add Course</button> 
   </mat-dialog-actions>
   </div>

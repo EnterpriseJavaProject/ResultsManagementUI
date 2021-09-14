@@ -25,7 +25,7 @@ export class ResourceService {
   }
 
   updateResource(toStore: any, id: any, overwriteUrl?: string ){
-    return this.http.patch(`${environment.API_BASE}/${overwriteUrl || this.endpoint+'/'+ id }`, toStore)
+    return this.http.put(`${environment.API_BASE}/${overwriteUrl || this.endpoint+'/'+ id }`, toStore)
 
   }
 
