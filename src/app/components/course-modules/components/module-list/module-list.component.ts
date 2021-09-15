@@ -97,17 +97,17 @@ export class ModuleListComponent implements OnInit {
     }
 
     openConfirmDialog(data){
-      const upp=(data.module_name).toUpperCase()
+      // const upp=(data.module_name).toUpperCase()
     
   
-      const message = `Are you sure you want to delete : ` + upp;
+      // const message = `Are you sure you want to delete : ` + upp;
     
-      const dialogData = new ConfirmDialogModel("Confirm Action", message);
+      // const dialogData = new ConfirmDialogModel("Confirm Action", message);
   
-      const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
-        // maxWidth: "400px",
-        data: dialogData
-      });
+      // const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
+      //   // maxWidth: "400px",
+      //   data: dialogData
+      // });
   
       // dialogRef.afterClosed().subscribe(dialogResult => {
       //   this.result = dialogResult;

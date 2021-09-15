@@ -1,4 +1,4 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Input } from '@angular/core';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 
 @Component({
@@ -10,20 +10,24 @@ export class ConfirmationComponentComponent implements OnInit {
 
   title: string;
   message: any;
-
+  @Input()
+  clickFunction;
   constructor(public dialogRef: MatDialogRef<ConfirmationComponentComponent>,
     @Inject(MAT_DIALOG_DATA) public data: ConfirmDialogModel) {
     // Update view with given values
     this.title = data.title;
     this.message = data.message;
+    this.clickFunction = data.clickFunction;
   }
 
   ngOnInit() {
   }
 
-  onConfirm(): void {
-    // Close the dialog, return true
-    this.dialogRef.close(true);
+
+  onConfirm() {
+    if(this.clickFunction){
+      this.clickFunction();
+    }
   }
 
   onDismiss(): void {
@@ -39,6 +43,6 @@ export class ConfirmationComponentComponent implements OnInit {
  */
 export class ConfirmDialogModel {
 
-  constructor(public title: string, public message: any) {
+  constructor(public title: string, public message: any, public clickFunction:any) {
   }
 }

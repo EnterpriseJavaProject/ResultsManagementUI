@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StudentsFormComponent } from '../students-form/students-form.component';
 import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
+import { catchError } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { errorAlert, successAlert } from 'src/app/utils/constants';
 
 
 @Component({
@@ -32,6 +35,7 @@ export class StudentsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
+    this.loadStats()
 
 
   }
@@ -44,20 +48,24 @@ export class StudentsListComponent implements OnInit {
 
       this.studentService.getAllStudent().subscribe(stdudents => {
         this.data = stdudents;
-        this.totalStudent = this.data.length
         this.dataSource = new MatTableDataSource(this.data)
-        this.cardsData= [
-          { messages:[{headerMessage:'Total Students',headerValue:(this.totalStudent).toString()} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
-          { messages:[{headerMessage: 'Active Students',headerValue:'10'} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
-          { messages:[{headerMessage: 'Inactive Students',headerValue:'10'} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
-      
-        ];
+     
       });
-
-  
-      
     }
 
+    loadStats=()=>{
+      this.studentService.getTotalStudents().subscribe(
+        totstudents =>{
+          this.totalStudent = totstudents
+          this.cardsData= [
+            { messages:[{headerMessage:'Total Students',headerValue:this.totalStudent} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
+            { messages:[{headerMessage: 'Active Students',headerValue:'10'} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
+            { messages:[{headerMessage: 'Inactive Students',headerValue:'10'} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
+        
+          ];
+        }
+      )
+    }
     ngAfterViewInit() {
       if(this.dataSource){
         this.dataSource.paginator = this.paginator;
@@ -81,24 +89,6 @@ export class StudentsListComponent implements OnInit {
 
 
 
-    // openDialog(data) {  
-    //   // debugger;  
-    //   const dialogConfig = new MatDialogConfig();  
-    //   dialogConfig.disableClose = true;  
-    //   dialogConfig.autoFocus = true;  
-    //   dialogConfig.position = {  
-    //       'top': '10vh',  
-    //       'left': '30vw'  
-    //   };  
-    //   dialogConfig.width = '600px';  
-    //   dialogConfig.height = '650px';
-        
-    //   dialogConfig.data = {  
-    //       rowData: data,
-    //       type:'update'
-    //   };  
-    //   this.dialog.open(StudentsFormComponent, dialogConfig);  
-    // }
 
     openDialog(data:Student) {  
       // debugger;  
@@ -159,11 +149,13 @@ export class StudentsListComponent implements OnInit {
     }
   openConfirmDialog(data){
     const upp=(data.full_name).toUpperCase()
+    const dd = data.id
   
 
     const message = `Are you sure you want to delete : ` + upp;
+    const clickFunction = this.deleteStudent(data.id);
   
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    const dialogData = new ConfirmDialogModel("Confirm Action", message,this.deleteStudent(dd));
 
     const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
       // maxWidth: "400px",
@@ -175,6 +167,24 @@ export class StudentsListComponent implements OnInit {
     // }); 
     }
     
+
+    deleteStudent=(data)=>{
+      this.studentService.deleteResource(`delete/${data.id}`)
+      .pipe(
+              catchError(err => of(false))
+            ).
+            subscribe(
+              success => {
+                if (success){
+                  return(
+                  successAlert('Student Deleted Successfully') )
+                }
+                else {
+                errorAlert('Error Occured')       
+              }
+              }
+            )
+  }
 
    
 }

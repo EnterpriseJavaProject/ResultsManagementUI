@@ -134,19 +134,19 @@ openInfoDialog(data) {
     this.dialog.open(StaffFormComponent, dialogConfig);  
   }
   openConfirmDialog(data){
-    const upp=(data.full_name).toUpperCase()
-    const message = `Are you sure you want to delete : ` + upp;
+    // const upp=(data.full_name).toUpperCase()
+    // const message = `Are you sure you want to delete : ` + upp;
   
-    const dialogData = new ConfirmDialogModel("Confirm Action", message);
+    // const dialogData = new ConfirmDialogModel("Confirm Action", message);
 
-    const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
-      // maxWidth: "400px",
-      data: dialogData
-    });
+    // const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
+    //   // maxWidth: "400px",
+    //   data: dialogData
+    // });
 
-    // dialogRef.afterClosed().subscribe(dialogResult => {
-    //   this.result = dialogResult;
-    // }); 
+    // // dialogRef.afterClosed().subscribe(dialogResult => {
+    // //   this.result = dialogResult;
+    // // }); 
     }
 
 

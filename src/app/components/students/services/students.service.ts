@@ -32,4 +32,10 @@ export class StudentsService extends ResourceService {
       })
     )
   }
+
+
+getTotalStudents(){
+return super.getResources(null,'student/countStudent')  
+}
+
 }
