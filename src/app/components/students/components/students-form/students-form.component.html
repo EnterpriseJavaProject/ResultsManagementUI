@@ -16,7 +16,7 @@
         <div >
           <mat-form-field class="email-full-width">
             <mat-label>Full Name</mat-label>
-            <input type="full_name" id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="full_name" required>
+            <input type="full_name" id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="name" required>
             <mat-error>
               {{errors.fullName}}
             </mat-error>          
@@ -44,7 +44,7 @@
         <div>
         <mat-form-field class="email-full-width">
           <mat-label>Email</mat-label>
-        <input type="email" id="email"  name="email" matInput placeholder="Ex. ice@example.com" formControlName="address" required>
+        <input type="email" id="email"  name="email" matInput placeholder="Ex. ice@example.com" formControlName="email" required>
         <mat-error>
 					{{errors.email}}
 				</mat-error>
@@ -53,7 +53,7 @@
     <div>
     <mat-form-field class="email-full-width">
       <mat-label>Contact</mat-label>
-      <input type="contact" id="contact" name="contact" matInput placeholder="Ex. course" formControlName="contact" required maxlength="10" minlength="10">
+      <input id="contact" matInput formControlName="contact" maxlength="10">
       <mat-error>
         {{errors.contact}}
       </mat-error>
@@ -71,6 +71,17 @@
     </mat-form-field>
   </div>
 
+  <mat-form-field style="width: 100%;">
+    <mat-label>Select Course </mat-label>
+    <mat-select formControlName="course" required>
+      <mat-option *ngFor="let course of courses" [value]="course.name">
+        {{course.name}}
+      </mat-option>
+    </mat-select>
+    <mat-error>
+      {{errors.course_name}}
+    </mat-error>
+  </mat-form-field>
   
       </form>
       <div>
@@ -96,17 +107,7 @@
         </mat-error>
       </mat-form-field>
       <br>
-      <mat-form-field style="width: 100%;">
-        <mat-label>Select Course Module </mat-label>
-        <mat-select formControlName="module_name" required>
-          <mat-option *ngFor="let course_module of course_modules" [value]="course_module.name">
-            {{course_module.name}}
-          </mat-option>
-        </mat-select>
-        <mat-error>
-					{{errors.module_name}}
-				</mat-error>
-      </mat-form-field>
+   
     </form>
     </ng-container>
     </mat-dialog-content>

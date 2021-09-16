@@ -1,16 +1,13 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CardItem, Student } from "../../interfaces/models";
 import { StudentsService } from '../../services/students.service';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import {SelectionModel} from '@angular/cdk/collections'; 
 import { Router } from '@angular/router';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { StudentsFormComponent } from '../students-form/students-form.component';
-import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
-import { catchError } from 'rxjs/operators';
-import { of } from 'rxjs';
+import {  ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
 import { errorAlert, successAlert } from 'src/app/utils/constants';
 
 
@@ -24,9 +21,10 @@ export class StudentsListComponent implements OnInit {
 
   totalStudent:any;
   cardsData:CardItem[];
+  id_number:any;
 
   data:any[]
-  displayedColumns: string[] = ['student_id', 'full_name', 'address', 'course','actions'];
+  displayedColumns: string[] = ['student_id', 'name', 'email', 'course','actions'];
   dataSource: MatTableDataSource<Student>=new MatTableDataSource([]);
 
   constructor(private studentService:StudentsService, private router:Router,public dialog: MatDialog) { }
@@ -39,17 +37,12 @@ export class StudentsListComponent implements OnInit {
 
 
   }
-  // loadData = () => {
-  //   this.data= this.studentService.getAllStudents();
-  //    this.dataSource = new MatTableDataSource(this.data)
-  //   }
+ 
 
     loadData = () => {
-
       this.studentService.getAllStudent().subscribe(stdudents => {
         this.data = stdudents;
         this.dataSource = new MatTableDataSource(this.data)
-     
       });
     }
 
@@ -111,7 +104,6 @@ export class StudentsListComponent implements OnInit {
 
 
     openAddDialog() {  
-      // debugger;  
       const dialogConfig = new MatDialogConfig();  
       dialogConfig.disableClose = true;  
       dialogConfig.autoFocus = true;  
@@ -130,7 +122,6 @@ export class StudentsListComponent implements OnInit {
     }
 
     openCourseDialog(data) {  
-      // debugger;  
       const dialogConfig = new MatDialogConfig();  
       dialogConfig.disableClose = true;  
       dialogConfig.autoFocus = true;  
@@ -148,42 +139,33 @@ export class StudentsListComponent implements OnInit {
       this.dialog.open(StudentsFormComponent, dialogConfig);  
     }
   openConfirmDialog(data){
-    const upp=(data.full_name).toUpperCase()
-    const dd = data.id
-  
-
+    const upp=(data.name).toUpperCase()
+    localStorage.setItem('item_id',data.id)
+    const  dialogConfig = new MatDialogConfig();
     const message = `Are you sure you want to delete : ` + upp;
-    const clickFunction = this.deleteStudent(data.id);
-  
-    const dialogData = new ConfirmDialogModel("Confirm Action", message,this.deleteStudent(dd));
-
-    const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
-      // maxWidth: "400px",
-      data: dialogData
-    });
-
-    // dialogRef.afterClosed().subscribe(dialogResult => {
-    //   this.result = dialogResult;
-    // }); 
+    dialogConfig.disableClose = true;  
+    dialogConfig.autoFocus = true;  
+    dialogConfig.data = {
+      message:message,
+      title:'Confirm Action',
+     clickFunction:this.deleteStudent
+       }
+    this.dialog.open(ConfirmationComponentComponent, dialogConfig);  
     }
     
 
-    deleteStudent=(data)=>{
-      this.studentService.deleteResource(`delete/${data.id}`)
-      .pipe(
-              catchError(err => of(false))
-            ).
-            subscribe(
-              success => {
-                if (success){
-                  return(
-                  successAlert('Student Deleted Successfully') )
-                }
-                else {
-                errorAlert('Error Occured')       
-              }
-              }
-            )
+     deleteStudent=(data)=>{
+     this.studentService.deleteResource(`delete/${data}`)
+    .subscribe (
+      success => {
+        return(
+          successAlert('Student Deleted Successfully') )
+      },
+      error => {
+        return(
+        errorAlert('Error Occured'))
+      })      
+
   }
 
    

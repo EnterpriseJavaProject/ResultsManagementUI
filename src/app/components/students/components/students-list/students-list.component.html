@@ -26,7 +26,7 @@
         <!--- Note that these columns can be defined in any order.
               The actual rendered columns are set as a property on the row definition" -->
               <ng-container matColumnDef="actions" >
-                <th mat-header-cell *matHeaderCellDef style="text-align: center;">Actions</th>
+                <th mat-header-cell *matHeaderCellDef >Actions</th>
                 <td mat-cell *matCellDef="let element">
                  <button mat-icon-button (click)="openInfoDialog(element)" color="info"><mat-icon matTooltip="More Info" >info</mat-icon></button>       &nbsp;&nbsp;
                  <button mat-icon-button (click)="openCourseDialog(element)" color="ekf-green"><mat-icon matTooltip="Add To Course" >library_add_check</mat-icon></button>       &nbsp;&nbsp;
@@ -45,9 +45,9 @@
         </ng-container>
       
         <!-- Name Column -->
-        <ng-container matColumnDef="full_name">
+        <ng-container matColumnDef="name">
           <th mat-header-cell *matHeaderCellDef> Name </th>
-          <td mat-cell *matCellDef="let element"> {{element.full_name}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
         </ng-container>
       
         <!-- Weight Column -->
@@ -57,9 +57,9 @@
         </ng-container>
       
         <!-- Symbol Column -->
-        <ng-container matColumnDef="address">
+        <ng-container matColumnDef="email">
           <th mat-header-cell *matHeaderCellDef> Email </th>
-          <td mat-cell *matCellDef="let element"> {{element.address}} </td>
+          <td mat-cell *matCellDef="let element"> {{element.email}} </td>
         </ng-container>
       
         <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>

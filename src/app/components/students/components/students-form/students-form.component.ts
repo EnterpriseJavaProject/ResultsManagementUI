@@ -60,16 +60,17 @@ course_modules = [
   
   ngOnInit(): void {
     this.studentForm =  this.fb.group({
-      full_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      contact: ['', [Validators.minLength(10),Validators.maxLength(10),Validators.required]],
-      address:['', [Validators.email,Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      contact: ['', [Validators.pattern('[- +()0-9]+'), Validators.minLength(10), Validators.maxLength(20)]],
+      course:['', [Validators.required]],
+
+      email:['', [Validators.email,Validators.required]],
       student_id:['', [Validators.required]],
       date_of_birth:['', [Validators.required]],
       gender:['', [Validators.required]],
     });
     this.courseForm = this.fb.group({
       course_name:['', [Validators.required]],
-      module_name:['', [Validators.required]]
     })
   
    if(this.tyye === 'add'){
@@ -85,8 +86,6 @@ course_modules = [
   close() {  
     this.dialogRef.close();  
 }  
-
-
 
   ngAfterViewInit(): void {
 
@@ -113,17 +112,19 @@ course_modules = [
     if(this.studentForm.valid){
       const formValues = this.studentForm.getRawValue();
       const studentData = {
-        full_name: formValues.full_name,
+        name: formValues.name,
         contact: formValues.contact,
         student_id: formValues.student_id,
         date_of_birth: formValues. date_of_birth,
         gender: formValues.gender,
         usertype: 'Student',
-        address:formValues.address
+        email:formValues.email,
+        course:formValues.course,
+        status:'Active'
        }
 
       if (this.student?.id){ // edit
-        this.studentService.updateResource(studentData, this.student.id,"student/updateStudent").subscribe(
+        this.studentService.updateResource(studentData, this.student.id,"students/updateStudent").subscribe(
            (d: any) => {
              this.close()
              successAlert('Student Updated Successfully')
@@ -131,16 +132,26 @@ course_modules = [
         )
       }
       else{
-        this.studentService.storeResource(studentData,"student/saveStudent").subscribe(
+        this.studentService.storeResource(studentData,"students/saveStudent").subscribe(
           (d: any) => {
             this.close()
             successAlert('Student Created Successfully')
           }
         )
-      }
+      } }}
 
-    }
-   }
+
+
+      addToCourse(){
+        if(this.courseForm.valid){
+          const formValues = this.courseForm.getRawValue();
+          const studentData = {
+            course_id: formValues.full_name,
+      
+           }
+
+        } 
+      }
   
 
 }

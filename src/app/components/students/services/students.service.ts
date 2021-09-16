@@ -5,7 +5,7 @@ import { map } from 'rxjs/operators';
 import { ResourceService } from 'src/app/services/resources';
 import { Student } from '../interfaces/models';
 
-const ENDPOINT = "student"
+const ENDPOINT = "students"
 
 @Injectable({
   providedIn: 'root'
@@ -22,7 +22,7 @@ export class StudentsService extends ResourceService {
   }
 
   getAllStudent(){
-    return super.getResources(null,'student/getAllStudent').pipe(
+    return super.getResources(null,'students/getAllStudent').pipe(
       map((response:any) => {
         let studentsArray: any[] = response;
         // studentsArray.map(value => {
@@ -35,7 +35,7 @@ export class StudentsService extends ResourceService {
 
 
 getTotalStudents(){
-return super.getResources(null,'student/countStudent')  
+return super.getResources(null,'students/countStudent')  
 }
 
 }

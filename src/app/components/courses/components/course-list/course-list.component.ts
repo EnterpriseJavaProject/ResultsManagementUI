@@ -8,7 +8,7 @@ import {SelectionModel} from '@angular/cdk/collections';
 import { Router } from '@angular/router';
 import { MatDialog,MatDialogConfig } from '@angular/material/dialog';
 import { CourseFormComponent } from '../course-form/course-form.component';
-import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
+// import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
 import { AddModuleComponent } from '../add-module/add-module.component';
 
 @Component({
