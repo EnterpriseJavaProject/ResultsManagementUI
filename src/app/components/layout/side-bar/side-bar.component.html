@@ -13,12 +13,15 @@
     
         <span>Student Results Management System</span>
         <span class="example-spacer"></span>
-        <button mat-icon-button class="example-icon favorite-icon" matTooltip="Reset Password" (click)="openReset()" >
-          <mat-icon>lock</mat-icon>
-        </button>
-        <button mat-icon-button class="example-icon" >
-          <mat-icon>logout</mat-icon>Logout
-        </button>
+        <div class="right-top">
+          <button mat-icon-button class="example-icon favorite-icon" matTooltip="Reset Password" (click)="openReset()" >
+            <mat-icon>lock</mat-icon>
+          </button>
+          <button mat-icon-button class="example-icon" matTooltip="Logout" >
+            <mat-icon>logout</mat-icon>
+          </button>
+        </div>
+    
       </mat-toolbar>
     
       <mat-sidenav-container>

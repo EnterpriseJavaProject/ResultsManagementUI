@@ -1,7 +1,9 @@
-.example-spacer {
+/* .example-spacer {
     width: 57vw;
-   }
- 
+   } */
+   .example-spacer {
+    flex: auto;
+  }
    mat-toolbar {
      background:#673ab7 ;
      color: white;
@@ -66,4 +68,6 @@
    margin-bottom: 11px;
    background-color: rgba(255, 255, 255, 0.5);
  }
- 
+ .right-top{
+   margin-right: 4%;
+ }
