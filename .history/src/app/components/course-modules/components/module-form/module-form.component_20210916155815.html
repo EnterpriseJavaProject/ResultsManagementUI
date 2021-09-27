@@ -1,0 +1,74 @@
+<mat-toolbar mat-dialog-title *ngIf="addOnlyForm" style="background-color:peru;">  
+    Add Course-Module   
+</mat-toolbar> 
+
+<mat-toolbar mat-dialog-title *ngIf="!addOnlyForm" style="background-color:peru;">  
+  Update Course-Module  
+</mat-toolbar>
+
+<mat-dialog-content>
+<ng-container>
+       
+    <form [formGroup]="moduleForm" >
+      <div >
+ 
+        <mat-form-field class="email-full-width">
+          <mat-label>Module Name</mat-label>
+          <input type="module_name" id="module_name"  name="module_name" matInput placeholder="Ex. DBC" formControlName="module_name" required>
+      </mat-form-field>
+      </div>
+   
+      <div>
+      <mat-form-field class="email-full-width">
+        <mat-label>Module Code</mat-label>
+        <input type="module_code" id="module_code"  name="module_code" matInput placeholder="Ex. ice@example.com" formControlName="module_code" required>
+    </mat-form-field>
+  </div>
+  <div >
+ 
+    <mat-form-field class="email-full-width">
+      <mat-label>Course Name</mat-label>
+      <input type="course_name" id="course_name"  name="course_name" matInput placeholder="Ex. DBC" formControlName="course_name" required>
+  </mat-form-field>
+  </div>
+  <div>
+    <mat-form-field class="email-full-width">
+      <mat-label>Lecturer </mat-label>
+      <input type="lecturer" id="lecturer"  name="lecturer" matInput placeholder="lecturer" formControlName="lecturer" required>
+  </mat-form-field>
+</div>
+<!-- <div>
+  <mat-form-field class="email-full-width">
+    <mat-label>Start Date</mat-label>
+    <input type="start_date" id="start_date"  name="start_date" matInput placeholder="Ex. 12er33i" formControlName="start_date" required>
+</mat-form-field>
+</div>
+<div>
+<mat-form-field class="email-full-width">
+  <mat-label>End Date</mat-label>
+  <input type="end_date" id="end_date"  name="end_date" matInput placeholder="Ex. course" formControlName="end_date" required>
+</mat-form-field>
+</div> -->
+
+
+    </form>
+    <div>
+
+    </div>
+  
+
+  </ng-container>
+</mat-dialog-content>
+<div class="dialog-actions">
+  <mat-dialog-actions >  
+    <button  mat-raised-button 
+    color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
+    <button  *ngIf="addOnlyForm" mat-raised-button
+    color="primary"  >Add</button>  
+    <button  *ngIf="!addOnlyForm"  mat-raised-button
+    color="primary"  >Update</button>  
+</mat-dialog-actions>
+</div>
+
+  
+  
