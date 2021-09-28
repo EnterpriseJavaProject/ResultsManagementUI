@@ -69,6 +69,8 @@ import { PasswordResetComponent } from './components/user-profile/components/pas
 import { SideBarComponent } from './components/layout/side-bar/side-bar.component';
 import { ConfirmationComponentComponent } from './components/confirmation-component/confirmation-component.component';
 import { AddModuleComponent } from './components/courses/components/add-module/add-module.component';
+import { JwtInterceptor } from './interceptors/jwt.interceptor';
+import { fakeBackendProvider } from './services/fake-backend';
 
 
 @NgModule({
@@ -155,6 +157,10 @@ import { AddModuleComponent } from './components/courses/components/add-module/a
     useClass: NetworkInterceptorInterceptor, 
     multi: true },
     { provide: ErrorHandler, useClass: GlobalErrorHandler },
+    { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
+
+    // provider used to create fake backend
+    fakeBackendProvider
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   bootstrap: [AppComponent]

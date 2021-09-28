@@ -1,5 +1,11 @@
 import { Component,OnInit } from '@angular/core';
 import { NgxSpinnerService } from "ngx-spinner";
+import { User ,Role} from './interfaces/all-models';
+import { AuthService } from './services/auth.service';
+
+
+
+
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -7,8 +13,10 @@ import { NgxSpinnerService } from "ngx-spinner";
 })
 export class AppComponent implements OnInit{
   title = 'ResultsManagement';
-
-  constructor(private spinner: NgxSpinnerService) {}
+  user:User;
+  constructor(private authenticationService: AuthService) {
+    this.authenticationService.user.subscribe(x => this.user = x);
+}
 
   ngOnInit() {
     /** spinner starts on init */
@@ -19,4 +27,7 @@ export class AppComponent implements OnInit{
     //   this.spinner.hide();
     // }, 5000);
   }
+  get isAdmin() {
+    return this.user && this.user.usertype === Role.Admin;
+}
 }

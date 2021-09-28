@@ -6,5 +6,7 @@
 <ngx-spinner></ngx-spinner>
 </div>
 
-<app-side-bar>
+<app-side-bar *ngIf="user">
 </app-side-bar>
+
+<app-login *ngIf="!user"></app-login>

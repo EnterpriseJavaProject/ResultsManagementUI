@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { User } from 'src/app/interfaces/all-models';
 import { CardItem } from '../../interfaces/models';
 import { saleData } from '../../utils/constants';
+import { AuthService } from '../../../../services/auth.service';
 
 @Component({
   selector: 'app-dashboard-view',
@@ -9,6 +11,7 @@ import { saleData } from '../../utils/constants';
 })
 export class DashboardViewComponent implements OnInit {
   saleData;
+  user: User;
   cardsData: CardItem[] = [
     { messages:[{headerMessage:'Total Students',headerValue:'14'} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
     { messages:[{headerMessage: 'Total Courses',headerValue:'10'} ], headerIcon: 'fas fa-scroll',headerColor:'#68EF50' },
@@ -16,7 +19,11 @@ export class DashboardViewComponent implements OnInit {
     { messages:[{headerMessage: 'Total Instructors',headerValue:'10'} ], headerIcon: 'fas fa-chalkboard-teacher',headerColor:'#EBB6FB' },
 
   ];
-  constructor() { }
+  constructor(
+    private authenticationService: AuthService
+  ) {
+    this.user = this.authenticationService.userValue;
+   }
 
   ngOnInit(): void {
     this.saleData=saleData

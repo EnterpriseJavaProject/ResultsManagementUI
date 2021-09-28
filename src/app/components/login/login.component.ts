@@ -3,7 +3,7 @@ import { Component, OnInit,Input,Inject } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, FormControl } from '@angular/forms';
 import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
-import { catchError } from 'rxjs/operators';
+import { catchError,first} from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
 // import { errorAlert, loginAlert } from 'src/app/utils/constants';
 import Swal from 'sweetalert2';
@@ -18,10 +18,15 @@ export class LoginComponent implements OnInit {
   hide = true;
   constructor( private fb: FormBuilder,
     private router:Router,
+    private route: ActivatedRoute,
+
     private http:HttpClient,
     private loginService:AuthService
     
-    ) { }
+    ) {  // redirect to home if already logged in
+      if (this.loginService.userValue) { 
+          this.router.navigate(['/dashboard']);
+      } }
 
   ngOnInit(): void {
     this.loginForm =  this.fb.group({
@@ -56,15 +61,17 @@ export class LoginComponent implements OnInit {
 //   }
 // }
 login(){
+  if(this.loginForm.valid){
   this.loginService.login(this.loginForm.value)
-  .subscribe(
-      data => {
-    
-        this.router.navigate(['/dashboard'])
-        console.log(data);
-
-      },
-      error => {
+  .pipe(first())
+            .subscribe({
+                next: () => {
+                  this.router.navigate(['/dashboard'])
+                    // get return url from query parameters or default to home page
+                    // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
+                    // this.router.navigateByUrl(returnUrl);
+                },
+     error: error => {
         if (error.status === 400){
          Swal.fire({
            title: 'Error!',
@@ -75,8 +82,8 @@ login(){
          }
       }
    
-  )
-}
+    });
+  }}
 search(){
   
  

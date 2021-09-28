@@ -4,6 +4,7 @@ import { MatSidenav } from '@angular/material/sidenav';
 import { delay } from 'rxjs/operators';
 import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { PasswordResetComponent } from '../../user-profile/components/password-reset/password-reset.component';
+import { AuthService } from '../../../services/auth.service';
 
 @Component({
   selector: 'app-side-bar',
@@ -14,11 +15,14 @@ export class SideBarComponent implements OnInit {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver,public dialog: MatDialog) {}
+  constructor(private observer: BreakpointObserver,public dialog: MatDialog,private authenticationService:AuthService) {}
 
   ngOnInit(): void {
   }
 
+  logout() {
+    this.authenticationService.logout();
+}
   ngAfterViewInit() {
     this.observer
       .observe(['(max-width: 800px)'])

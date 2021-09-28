@@ -15,6 +15,8 @@ import { StudentsInfoComponent } from './components/students/components/students
 import { StudentsListComponent } from './components/students/components/students-list/students-list.component';
 import { StudentsResultComponent } from './components/students/components/students-result/students-result.component';
 import { UploadGradeComponent } from './components/upload-grade/components/upload-grade/upload-grade.component';
+import { AuthGuard } from './guards/auth.guard';
+import { Role } from './interfaces/all-models';
 
 const routes: Routes = [
   {path: 'login' , component: LoginComponent , pathMatch: 'full'},
@@ -28,7 +30,7 @@ const routes: Routes = [
   {path: 'module-list' , component: ModuleListComponent , pathMatch: 'full'},
   {path: 'upload-grade' , component: UploadGradeComponent , pathMatch: 'full'},
   {path: 'reports' , component: ReportsListComponent , pathMatch: 'full'},
-  {path: 'dashboard' , component: DashboardViewComponent , pathMatch: 'full'},
+  {path: 'dashboard' , component: DashboardViewComponent , pathMatch: 'full', canActivate:[AuthGuard]},
   // {path: 'profile' , component: UserProfileComponent , pathMatch: 'full'},
   {path: 'student-result' , component: StudentsResultComponent , pathMatch: 'full'},
   {path: 'search-grade' , component: SearchGradeComponent , pathMatch: 'full'},
