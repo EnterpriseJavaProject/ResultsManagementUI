@@ -38,15 +38,19 @@
         </ng-container>
   
     <!-- Position Column -->
-    <ng-container matColumnDef="module_code">
-      <th mat-header-cell *matHeaderCellDef> Module code </th>
-      <td mat-cell *matCellDef="let element"> {{element.module_code}} </td>
+    <ng-container matColumnDef="course_name">
+      <th mat-header-cell *matHeaderCellDef> Course name </th>
+      <td mat-cell *matCellDef="let element"> {{element.course_name}} </td>
     </ng-container>
   
     <!-- Name Column -->
     <ng-container matColumnDef="module_name">
       <th mat-header-cell *matHeaderCellDef> Module Name </th>
       <td mat-cell *matCellDef="let element"> {{element.module_name}} </td>
+    </ng-container>
+    <ng-container matColumnDef="staff_name">
+      <th mat-header-cell *matHeaderCellDef> Staff Name </th>
+      <td mat-cell *matCellDef="let element"> {{element.staff_name}} </td>
     </ng-container>
   
     <!-- Weight Column -->

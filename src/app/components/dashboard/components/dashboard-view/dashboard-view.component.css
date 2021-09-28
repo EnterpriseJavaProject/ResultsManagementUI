@@ -12,3 +12,8 @@
 display:inline-flex;
 margin: 10px;
 }
+
+.cart{
+    width:50vw;
+    height: 100%;
+}

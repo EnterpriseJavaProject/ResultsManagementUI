@@ -25,6 +25,10 @@ export class StudentsFormComponent implements OnInit {
   {"name": "Male",  "checked": true},
   {"name": "Female",  "checked": false}
 ]
+statusList=[
+  {"name": "Active", "value":"Active"},
+  {"name": "InActive",  "value": "InActive"}
+]
   
 
 maxDate=new Date();
@@ -58,11 +62,11 @@ courseList:any[]
       name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
       contact: ['', [Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(20)]],
       course:['', [Validators.required]],
-
       email:['', [Validators.email,Validators.required]],
       student_id:['', [Validators.required]],
       date_of_birth:['', [Validators.required]],
       gender:['', [Validators.required]],
+      status:['']
     });
     this.courseForm = this.fb.group({
       course_name:['', [Validators.required]],
@@ -141,7 +145,7 @@ loadCourses = () => {
           usertype: 'Student',
           email:formValues.email,
           course:formValues.course,
-          status:'Active',
+          status:formValues.status,
            }
            if(this.student.id){
             this.studentService.updateResource(updateData, "updateStudent").subscribe(
@@ -160,9 +164,17 @@ loadCourses = () => {
         if(this.courseForm.valid){
           const formValues = this.courseForm.getRawValue();
           const studentData = {
-            course_id: formValues.full_name,
-      
+            course: formValues.course_name,
+            id:this.student.id,
+            student_id: this.student.student_id,
+            name:this.student.name
            }
+           this.studentService.updateResource(studentData, "updateStudent").subscribe(
+            (d: any) => {
+              this.close()
+              successAlert('Course Updated Successfully')
+           }
+         )
 
         } 
       }

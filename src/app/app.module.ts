@@ -136,7 +136,7 @@ import { fakeBackendProvider } from './services/fake-backend';
     NgxChartsModule,
 
   ],
-  providers: [ErrorDialogService,LoadingService,
+  providers: [ErrorDialogService,LoadingService,DatePipe,
     { provide: MAT_FORM_FIELD_DEFAULT_OPTIONS, useValue: { appearance: 'outline', floatLabel : 'auto' }},
     {
       provide: MAT_RADIO_DEFAULT_OPTIONS,

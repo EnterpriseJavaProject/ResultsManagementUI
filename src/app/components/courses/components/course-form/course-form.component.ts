@@ -6,6 +6,8 @@ import { CourseListComponent } from '../course-list/course-list.component';
 import { CustomValidators, ConfirmValidParentMatcher, regExps, errorMessages } from '../../../../services/custom-validation'; 
 import { successAlert } from 'src/app/utils/constants';
 import { CoursesService } from '../../services/course.service';
+import { DatePipe } from '@angular/common';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
 
 @Component({
   selector: 'app-course-form',
@@ -27,6 +29,7 @@ confirmValidParentMatcher = new ConfirmValidParentMatcher();
 
 errors = errorMessages;
   constructor( 
+    public datepipe: DatePipe,
     private courseService:CoursesService,   
     private fb: FormBuilder,
     private dialogRef: MatDialogRef<CourseListComponent>,
@@ -35,17 +38,21 @@ errors = errorMessages;
     this.condata = data
     this.tyye=data.type }
 
-
+    statusList=[
+      {"name": "Active", "value":"Active"},
+      {"name": "InActive",  "value": "InActive"}
+    ]
  
  ngOnInit(): void {
  
     this.courseForm =  this.fb.group({
       course_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      code: ['', [Validators.required]],
-      course_level:['', [Validators.pattern('[1-9]+'),Validators.required]],
+      course_level: ['',  [Validators.required, Validators.minLength(2), Validators.maxLength(10)]],
+      // course_level:['', [Validators.pattern('[1-9]+'),Validators.required]],
       course_start_date:['', [Validators.required]],
       course_end_date:['', [Validators.required]],
       certificate_issuedate:['', [Validators.required]],
+      status:[''],
 
 
     });
@@ -74,11 +81,10 @@ onAdd(){
     const formValues = this.courseForm.getRawValue();
     const courseData = {
       course_name: formValues.course_name,
-      code: formValues.code,
       course_level: formValues.course_level,
-      course_start_date: formValues. course_start_date,
-      course_end_date: formValues.course_end_date,
-      certificate_issuedate:formValues.certificate_issuedate,
+      course_start_date:this.datepipe.transform(formValues.course_start_date,'yyyy/MM/dd' ),
+      course_end_date: this.datepipe.transform(formValues.course_end_date,'yyyy/MM/dd' ),
+      certificate_issuedate:this.datepipe.transform(formValues.certificate_issuedate,'yyyy/MM/dd' ),
       status:'Active'
      }
       this.courseService.storeResource(courseData,"courses/saveCourses").subscribe(
@@ -95,12 +101,11 @@ onAdd(){
       const updateData = {
         id:this.course.id,
         course_name: formValues.course_name,
-        code: formValues.code,
         course_level: formValues.course_level,
-        course_start_date: formValues. course_start_date,
-        course_end_date: formValues.course_end_date,
-        certificate_issuedate:formValues.certificate_issuedate,
-        status:'Active'
+        course_start_date:this.datepipe.transform(formValues.course_start_date,'yyyy/MM/dd' ),
+        course_end_date: this.datepipe.transform(formValues.course_end_date,'yyyy/MM/dd' ),
+        certificate_issuedate:this.datepipe.transform(formValues.certificate_issuedate,'yyyy/MM/dd' ),
+        status:formValues.status
        } 
 
        if(this.course.id){

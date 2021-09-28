@@ -36,7 +36,7 @@ export class ModuleService extends ResourceService {
 
 
 getTotalModules(){
-return super.getResources(null,'modules/countModules')  
+return super.getResources(null,'modules/countModule')  
 }
 
 

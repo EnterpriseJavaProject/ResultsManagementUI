@@ -8,6 +8,8 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { StaffService } from '../../services/staff.service';
 import { StaffFormComponent } from '../staff-form/staff-form.component';
+import { ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
+import { errorAlert, successAlert } from 'src/app/utils/constants';
 // import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
 
 @Component({
@@ -110,10 +112,10 @@ openInfoDialog(data) {
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '650px';
+    dialogConfig.height = '73vh';
       
     dialogConfig.data = {  
-        rowData: data,
+        ...data,
         type:'update'
     };  
     this.dialog.open(StaffFormComponent, dialogConfig);  
@@ -130,7 +132,7 @@ openInfoDialog(data) {
       'left': '30vw'  
   };  
   dialogConfig.width = '600px';  
-  dialogConfig.height = '650px';
+  dialogConfig.height = '73vh';
       
     dialogConfig.data = {
       type:'add'
@@ -150,25 +152,38 @@ openInfoDialog(data) {
     dialogConfig.height = '280px';
     dialogConfig.data = {
       type:'course',
-      rowData: data,
+      ...data,
     }  
     this.dialog.open(StaffFormComponent, dialogConfig);  
   }
   openConfirmDialog(data){
-    // const upp=(data.full_name).toUpperCase()
-    // const message = `Are you sure you want to delete : ` + upp;
-  
-    // const dialogData = new ConfirmDialogModel("Confirm Action", message);
-
-    // const dialogRef = this.dialog.open(ConfirmationComponentComponent, {
-    //   // maxWidth: "400px",
-    //   data: dialogData
-    // });
-
-    // // dialogRef.afterClosed().subscribe(dialogResult => {
-    // //   this.result = dialogResult;
-    // // }); 
+    const upp=(data.name).toUpperCase()
+    localStorage.setItem('item_id',data.id)
+    const  dialogConfig = new MatDialogConfig();
+    const message = `Are you sure you want to delete : ` + upp;
+    dialogConfig.disableClose = true;  
+    dialogConfig.autoFocus = true;  
+    dialogConfig.data = {
+      message:message,
+      title:'Confirm Action',
+     clickFunction:this.deleteStaff
+       }
+    this.dialog.open(ConfirmationComponentComponent, dialogConfig);  
     }
+    
 
+    deleteStaff=(data)=>{
+      this.staffService.deleteResource(`deleteStaff/${data}`)
+     .subscribe (
+       success => {
+         return(
+           successAlert('Staff Deleted Successfully') )
+       },
+       error => {
+         return(
+         errorAlert('Error Occured'))
+       })      
+ 
+   }
 
 }

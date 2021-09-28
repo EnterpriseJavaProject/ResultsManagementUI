@@ -26,7 +26,7 @@ export class CourseListComponent implements OnInit {
 
   id_number:any;
   data:any[]
-  displayedColumns: string[] = ['course_name', 'code', 'course_level', 'course_start_date','actions'];
+  displayedColumns: string[] = ['course_name', 'course_level', 'course_start_date','certificate_issuedate','actions'];
   dataSource: MatTableDataSource<Course>=new MatTableDataSource([]);
 
   constructor(private courseService:CoursesService, private router:Router,public dialog: MatDialog) { }
@@ -91,7 +91,7 @@ export class CourseListComponent implements OnInit {
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '650px';
+    dialogConfig.height = '65vh';
         
       dialogConfig.data = {  
           ...data,
@@ -110,7 +110,7 @@ export class CourseListComponent implements OnInit {
           'left': '30vw'  
       };  
       dialogConfig.width = '600px';  
-      dialogConfig.height = '650px';
+      dialogConfig.height = '60vh';
         
       dialogConfig.data = {
         type:'add'
@@ -127,7 +127,7 @@ export class CourseListComponent implements OnInit {
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '500px';
+    dialogConfig.height = '45vh';
         
       dialogConfig.data = {
         ...data
@@ -151,15 +151,17 @@ export class CourseListComponent implements OnInit {
 
 
     deleteCourse=(data)=>{
-      this.courseService.deleteResource(`delete/${data}`)
+      this.courseService.deleteResource(`deleteCourseById/${data}`)
      .subscribe (
        success => {
          return(
            successAlert('Course Deleted Successfully') )
        },
        error => {
+         if (error.status == 500){
          return(
-         errorAlert('Error Occured'))
+         errorAlert(`Error Occured Course has dependent modules`))
+         }
        })      
  
    }

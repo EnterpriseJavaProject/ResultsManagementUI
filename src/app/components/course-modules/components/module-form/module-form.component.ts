@@ -6,6 +6,8 @@ import { ModuleListComponent } from '../module-list/module-list.component';
 import { StaffService } from '../../../staff/services/staff.service';
 import { CoursesService } from '../../../courses/services/course.service';
 import { CustomValidators, ConfirmValidParentMatcher, regExps, errorMessages } from '../../../../services/custom-validation'; 
+import { ModuleService } from '../../services/course-module.service';
+import { successAlert } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-module-form',
@@ -24,9 +26,11 @@ errors = errorMessages;
   tyye:any;
   courseInstructors:any[]
   courseList:any[]
+  course_id:any
 
   constructor(    
     private fb: FormBuilder,
+    private moduleService:ModuleService,
     private dialogRef: MatDialogRef<ModuleListComponent>,
     private staffService:StaffService,
     private courseService:CoursesService,
@@ -42,7 +46,6 @@ errors = errorMessages;
       this.moduleForm =  this.fb.group({
         module_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
         course_name: ['', [Validators.required]],
-        module_code: ['', [Validators.minLength(10),Validators.maxLength(10),Validators.required]],
         lecturer:['', [Validators.required]],
      
   
@@ -72,11 +75,42 @@ loadCourses = () => {
   
     ngAfterViewInit(){
       if(this.condata){
-        
-  
         this.moduleForm.patchValue(this.condata)
     
       }
+    }
+
+
+    onChange(data){
+      this.moduleForm.patchValue({course_name:this.courseList[data].course_name})
+
+      this.course_id= this.courseList[data].id
+      
+      console.log(this.course_id + this.moduleForm.value)
+      // console.log("selected --->"+this.courseList[data].id+' '+this.courseList[data].course_name);
+
+      
+    }
+
+    onAdd(){
+      // if (this.moduleForm.valid){
+      //   const formValues = this.moduleForm.getRawValue();
+  
+      //   const moduleData ={
+      //     module_name :formValues.module_name,
+      //     course_name: formValues.course_name,
+      //     staff_name : formValues.lecturer,
+      //     course_id:this.condata['id'],
+      //     status:'Active'
+      //   }
+      //   this.moduleService.storeResource(moduleData,"modules/saveModules").subscribe(
+      //     (d: any) => {
+  
+      //       this.close()
+      //       successAlert('Module Created Successfully')
+      //          }
+      //    )
+      // }
     }
   }
   

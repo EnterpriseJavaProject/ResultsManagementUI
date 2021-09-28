@@ -1,5 +1,5 @@
 export interface Staff {
-    id:number;
+    id?:number;
     staff_id:string;
     users_id:number;
     name: string;

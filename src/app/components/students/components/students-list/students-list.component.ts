@@ -100,7 +100,7 @@ export class StudentsListComponent implements OnInit {
           'left': '30vw'  
       };  
       dialogConfig.width = '600px';  
-      dialogConfig.height = '700px';
+      dialogConfig.height = '73vh';
         
       dialogConfig.data = {  
           ...data,
@@ -119,7 +119,7 @@ export class StudentsListComponent implements OnInit {
           'left': '30vw'  
       };  
       dialogConfig.width = '600px';  
-      dialogConfig.height = '650px';
+      dialogConfig.height = '73vh';
         
       dialogConfig.data = {
         type:'add',
@@ -141,7 +141,7 @@ export class StudentsListComponent implements OnInit {
         
       dialogConfig.data = {
         type:'course',
-        rowData: data,
+        ... data,
       }  
       this.dialog.open(StudentsFormComponent, dialogConfig);  
     }

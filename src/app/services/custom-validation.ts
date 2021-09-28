@@ -53,5 +53,7 @@ export const errorMessages: { [key: string]: string } = {
 	course_code:'Enter course code',
 	course_level:'Enter course level',
 	issue_date:'Select issue date',
-	course_name:'Enter course name'
+	course_name:'Enter course name',
+	instructor:'Select course instructor',
+	module_insert:'Enter module name'
 };

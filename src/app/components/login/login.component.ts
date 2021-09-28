@@ -5,6 +5,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { catchError,first} from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth.service';
+import { loginAlert } from 'src/app/utils/constants';
 // import { errorAlert, loginAlert } from 'src/app/utils/constants';
 import Swal from 'sweetalert2';
 
@@ -67,6 +68,7 @@ login(){
             .subscribe({
                 next: () => {
                   this.router.navigate(['/dashboard'])
+                  loginAlert()
                     // get return url from query parameters or default to home page
                     // const returnUrl = this.route.snapshot.queryParams['returnUrl'] || '/dashboard';
                     // this.router.navigateByUrl(returnUrl);

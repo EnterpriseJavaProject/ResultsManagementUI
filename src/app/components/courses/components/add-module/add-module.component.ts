@@ -6,6 +6,8 @@ import { CoursesService } from '../../services/course.service';
 import { CourseListComponent } from '../course-list/course-list.component';
 import { CustomValidators, ConfirmValidParentMatcher, regExps, errorMessages } from '../../../../services/custom-validation'; 
 import { StaffService } from '../../../staff/services/staff.service';
+import { ModuleService } from 'src/app/components/course-modules/services/course-module.service';
+import { successAlert } from 'src/app/utils/constants';
 
 @Component({
   selector: 'app-add-module',
@@ -27,6 +29,7 @@ errors = errorMessages;
   constructor(    
     private fb: FormBuilder,
     private courseService:CoursesService,
+    private moduleService:ModuleService,
     private staffService:StaffService,
     private dialogRef: MatDialogRef<CourseListComponent>,
     @Inject(MAT_DIALOG_DATA) data,
@@ -37,11 +40,9 @@ errors = errorMessages;
   
     ngOnInit(): void {
       this.loadInstructors()
- 
       this.moduleForm =  this.fb.group({
         module_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
         course_name: [{value: '', disabled:true}],
-        module_code: ['', [Validators.minLength(10),Validators.maxLength(10),Validators.required]],
         lecturer:[''],
       });
   
@@ -66,7 +67,26 @@ errors = errorMessages;
     }
   }
 
-  
+  onAdd(){
+    if (this.moduleForm.valid){
+      const formValues = this.moduleForm.getRawValue();
+
+      const moduleData ={
+        module_name :formValues.module_name,
+        course_name: formValues.course_name,
+        staff_name : formValues.lecturer,
+        course_id:this.condata['id'],
+        status:'Active'
+      }
+      this.moduleService.storeResource(moduleData,"modules/saveModules").subscribe(
+        (d: any) => {
+
+          this.close()
+          successAlert('Module Created Successfully')
+             }
+       )
+    }
+  }
   
 
   }

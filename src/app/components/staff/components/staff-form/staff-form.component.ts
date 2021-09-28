@@ -5,6 +5,8 @@ import { MatDialogConfig,MatDialogRef, MAT_DIALOG_DATA } from "@angular/material
 import { StaffListComponent } from '../staff-list/staff-list.component';
 import { CustomValidators, ConfirmValidParentMatcher, regExps, errorMessages } from '../../../../services/custom-validation'; 
 import { CoursesService } from '../../../courses/services/course.service';
+import { StaffService } from '../../services/staff.service';
+import { successAlert } from 'src/app/utils/constants';
 
 
 @Component({
@@ -24,40 +26,45 @@ errors = errorMessages;
     {id:4, name:"Academic Secretary"}
   
   ];
+  statusList=[
+    {"name": "Active", "value":"Active"},
+    {"name": "InActive",  "value": "InActive"}
+  ]
   @Input()
   addOnlyForm: boolean = false;
   addCourseForm: boolean = false;
   updateOnlyForm:boolean = false;
 
-  lecturerForm:FormGroup;
+  staffForm:FormGroup;
   courseForm:FormGroup;
 courseList:any[]
-  lecturer:Staff;
-condata:[];
+  staff:Staff;
+condata:any;
 tyye:any
   constructor(
     private fb: FormBuilder,
   private courseService:CoursesService,
     private dialogRef: MatDialogRef<StaffListComponent>,
+    private staffService:StaffService,
     @Inject(MAT_DIALOG_DATA) data,
-  ) {this.condata = data.rowData,
+  ) {this.condata = data,
   this.tyye=data.type }
 
   ngOnInit(): void {
-    this.lecturerForm =  this.fb.group({
-      full_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-      contact: ['', [Validators.minLength(10),Validators.maxLength(10),Validators.required]],
-      email:['', [Validators.email,Validators.required]],
+    this.staffForm =  this.fb.group({
       staff_id:['', [Validators.required]],
-      password:['', [Validators.required]],
+      name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
+      email:['', [Validators.email,Validators.required]],
+      contact: ['', [Validators.pattern('[0-9]+'), Validators.minLength(10), Validators.maxLength(20)]],
       usertype:['', [Validators.required]],
-      course_name:[''],
+      course:[''],
+      status:[''],
+      password:['', [Validators.required]],
 
 
     });
     this.courseForm = this.fb.group({
-      course_name:['', [Validators.required]],
-      module_name:['', [Validators.required]]
+      course:['', [Validators.required]],
     })
     this.loadCourses()
    if(this.tyye === 'add'){
@@ -81,19 +88,76 @@ loadCourses = () => {
 
  
   ngAfterViewInit(){
-    if(this.condata){
-      Promise.resolve().then(()=>  this.lecturerForm.patchValue(this.condata))
+    if(this.condata?.id){
+      this.staff = {...this.condata};
+      const formValues : any= {...this.staff};
+      Promise.resolve().then(()=>  this.staffForm.patchValue(formValues))
     }
   }
 
+ 
+  
   onAdd(){
-    const data = this.lecturerForm.value;
-    const newAdd=[];
-    newAdd.push(data)
-    console.log(newAdd)
+    if(this.staffForm.valid){
+      const formValues = this.staffForm.getRawValue();
+      const staffData = {
+        staff_id: formValues.staff_id,
+        name: formValues.name,
+        email:formValues.email,
+        contact: formValues.contact,
+        usertype: formValues.usertype,
+        course:formValues.course,
+        status:'Active',
+       }
+       const userData ={
+        password:formValues.password,
+        email:formValues.email,
+        usertype: formValues.usertype,
+        status:'Active',
 
-  }
-  onUpdate(){
+       }
+       this.staffService.storeResource(userData,"users/saveUsers").subscribe(
+        (d: any) => {
+console.log('doine')
+              // this.close()
+              // successAlert('Staff Created Successfully')
+             }
+       )
 
-  }
+        this.staffService.storeResource(staffData,"staffs/saveStaff").subscribe(
+          (d: any) => {
+
+            this.close()
+            successAlert('Staff Created Successfully')
+          }
+        )
+      }
+     }
+
+
+      onUpdate(){
+        const formValues = this.staffForm.getRawValue();
+        const updateData = {
+          id:this.staff.id,
+          staff_id: formValues.staff_id,
+          name: formValues.name,
+          email:formValues.email,
+          contact: formValues.contact,
+          usertype: formValues.usertype,
+          course:formValues.course,
+          password:formValues.password,
+          status:formValues.status
+           }
+           if(this.staff.id){
+            this.staffService.updateResource(updateData, "updateStaff").subscribe(
+              (d: any) => {
+                this.close()
+                successAlert('  Staff Updated Successfully')
+             }
+           )
+           }
+
+         
+      }
+
 }

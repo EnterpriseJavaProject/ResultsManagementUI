@@ -15,27 +15,23 @@
         <mat-form-field class="email-full-width">
           <mat-label>Module Name</mat-label>
           <input type="module_name" id="module_name"  name="module_name" matInput placeholder="Ex. DBC" formControlName="module_name" required>
-      </mat-form-field>
+     <mat-error>
+        {{errors.module_insert}}
+      </mat-error>
+        </mat-form-field>
       </div>
    
       <div>
-      <mat-form-field class="email-full-width">
-        <mat-label>Module Code</mat-label>
-        <input type="module_code" id="module_code"  name="module_code" matInput placeholder="Ex. ice@example.com" formControlName="module_code" required>
-    </mat-form-field>
-  </div>
-  <div >
- 
     <mat-form-field  class="email-full-width">
       <mat-label>Select Course </mat-label>
-      <mat-select formControlName="course_name">
-        <mat-option *ngFor="let course of courseList" [value]="course.course_name">
+      <mat-select formControlName="course_name" (selectionChange)="onChange($event.value)">
+        <mat-option *ngFor="let course of courseList; let i = index;" [value]="i" [ident] ="course.id">
           {{course.course_name}}
         </mat-option>
       </mat-select>
-      <!-- <mat-error>
-        {{errors.course_name}}
-      </mat-error> -->
+      <mat-error>
+        {{errors.course_select}}
+      </mat-error>
     </mat-form-field>
   </div>
   <div>

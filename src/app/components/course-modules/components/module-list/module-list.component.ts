@@ -23,7 +23,7 @@ export class ModuleListComponent implements OnInit {
   cardsData:CardItem[];
 
   data:any[]
-  displayedColumns: string[] = ['module_name', 'module_code', 'status','actions'];
+  displayedColumns: string[] = ['module_name', 'course_name','staff_name', 'status','actions'];
   dataSource: MatTableDataSource<CourseModule>=new MatTableDataSource([]);
 
 
@@ -107,7 +107,7 @@ export class ModuleListComponent implements OnInit {
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '500px';
+    dialogConfig.height = '45vh';
         
       dialogConfig.data = {
         type:'add'

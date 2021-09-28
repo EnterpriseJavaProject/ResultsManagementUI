@@ -83,6 +83,17 @@
     </mat-error>
   </mat-form-field>
   
+  <mat-form-field style="width: 100%;" *ngIf="updateOnlyForm">
+    <mat-label>Status  </mat-label>
+    <mat-select formControlName="status" required>
+      <mat-option *ngFor="let status of statusList" [value]="status.value">
+        {{status.name}}
+      </mat-option>
+    </mat-select>
+    <!-- <mat-error>
+      {{errors.course_select}}
+    </mat-error> -->
+  </mat-form-field>
       </form>
       <div>
   
@@ -119,7 +130,7 @@
       <button  mat-raised-button color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
       <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()" [disabled]="studentForm.invalid" >Add</button>  
       <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary" (click)="onUpdate()"  >Update</button>  
-      <button  *ngIf="addCourseForm"  mat-raised-button color="primary" [disabled]="courseForm.invalid" >Add Course</button> 
+      <button  *ngIf="addCourseForm"  mat-raised-button color="primary" (click)="onUpdate()" [disabled]="courseForm.invalid" >Add Course</button> 
   </mat-dialog-actions>
   </div>
   

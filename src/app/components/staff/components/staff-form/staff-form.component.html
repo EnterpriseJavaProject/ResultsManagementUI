@@ -12,12 +12,12 @@
   <mat-dialog-content  *ngIf="!addCourseForm">
   <ng-container>
          
-      <form [formGroup]="lecturerForm" >
+      <form [formGroup]="staffForm" >
         <div >
    
           <mat-form-field class="email-full-width">
             <mat-label>Full Name</mat-label>
-            <input type="full_name" id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="full_name" required>
+            <input  id="name"  name="name" matInput placeholder="Ex. John Doe" formControlName="name" required>
             <mat-error>
               {{errors.fullName}}
             </mat-error>
@@ -35,10 +35,10 @@
     <div>
       <mat-form-field class="email-full-width">
         <mat-label>Contact</mat-label>
-        <input type="contact" id="contact" name="contact" matInput placeholder="Ex. ice@example.com" formControlName="contact" required>
+        <input id="contact" matInput formControlName="contact" maxlength="10">
         <mat-error>
-					{{errors.contact}}
-				</mat-error>
+          {{errors.contact}}
+        </mat-error>
       </mat-form-field>
   </div>
     <div>
@@ -74,9 +74,9 @@
   </mat-form-field>
   </div>
   <div>
-    <mat-form-field  class="email-full-width">
+    <mat-form-field  class="email-full-width" *ngIf="updateOnlyForm && staffForm.controls['usertype'].value === 'Instructor' || addOnlyForm && staffForm.controls['usertype'].value === 'Instructor'">
       <mat-label>Select Course </mat-label>
-      <mat-select formControlName="course_name">
+      <mat-select formControlName="course">
         <mat-option *ngFor="let course of courseList" [value]="course.course_name">
           {{course.course_name}}
         </mat-option>
@@ -86,6 +86,18 @@
       </mat-error>
     </mat-form-field>
         </div>
+
+        <mat-form-field style="width: 100%;" *ngIf="updateOnlyForm">
+          <mat-label>Status  </mat-label>
+          <mat-select formControlName="status" required>
+            <mat-option *ngFor="let status of statusList" [value]="status.value">
+              {{status.name}}
+            </mat-option>
+          </mat-select>
+          <!-- <mat-error>
+            {{errors.course_select}}
+          </mat-error> -->
+        </mat-form-field>
       </form>
     
    
@@ -98,7 +110,7 @@
     <form [formGroup]="courseForm">
       <mat-form-field  class="email-full-width">
         <mat-label>Select Course </mat-label>
-        <mat-select formControlName="course_name" required>
+        <mat-select formControlName="course" required>
           <mat-option *ngFor="let course of courseList" [value]="course.course_name">
             {{course.course_name}}
           </mat-option>
@@ -118,9 +130,9 @@
   <div class="dialog-actions">
     <mat-dialog-actions >  
       <button  mat-raised-button color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
-      <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()" [disabled]="lecturerForm.invalid"  >Add</button>  
-      <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary"  >Update</button>  
-      <button  *ngIf="addCourseForm"  mat-raised-button color="primary" [disabled]="courseForm.invalid"  >Add Lecturer</button> 
+      <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()" [disabled]="staffForm.invalid"  >Add</button>  
+      <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary" (click)="onUpdate()" >Update</button>  
+      <button  *ngIf="addCourseForm"  mat-raised-button color="primary" (click)="onUpdate()" [disabled]="courseForm.invalid"  >Add Lecturer</button> 
   </mat-dialog-actions>
   </div>
   

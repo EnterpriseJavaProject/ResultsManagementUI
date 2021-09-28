@@ -1,7 +1,7 @@
 <div class="home">
     <h1 style = "text-align: center;font-weight: bold;position: relative;top: 14vh;">Students Result Management System</h1>    
     <div class="flexb">
-        <mat-card class="card1">
+        <!-- <mat-card class="card1">
             <div class="container">
                 <h1 style = "text-align: center;font-weight: bold;">Students</h1>
     
@@ -17,12 +17,15 @@
                 </div>
                 </div>
 
-        </mat-card>
- 
-            <mat-card class="card2 ">
-                <div class="container">
-                            <!-- <h1 style = "text-align: center;font-weight: bold;">Student Results Management System</h1> -->
+        </mat-card> -->
+        <div class="left-side">
+           <img src="assets/aiti-kace.jpg" class="bg-image">
 
+        </div>
+            <mat-card class="card2 ">
+              
+                <div class="container">
+                    <img src="assets/aiti-logo.png" class="image">
                     <h1 style = "text-align: center;font-weight: bold;">Login</h1>
         
                     <form [formGroup]="loginForm" >
@@ -40,7 +43,7 @@
                               </button>
                         </mat-form-field>
         
-                        <div fxLayout="column" fxLayoutGap="10px" fxLayout.lt-md="column" >
+                        <div fxLayout="column" fxLayoutGap="100px" fxLayout.lt-md="column"  style = "margin-top: 50px;">
                             <div> 
                                 <button class="password-full-width" mat-raised-button color="primary" (click)="login()">
                                     Login

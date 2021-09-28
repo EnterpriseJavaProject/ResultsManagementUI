@@ -23,22 +23,14 @@
    
       <div>
       <mat-form-field class="email-full-width">
-        <mat-label>Course Code</mat-label>
-        <input id="course_code"  name="code" matInput placeholder="Ex. DBC100" formControlName="code" required>
+        <mat-label>Course Level</mat-label>
+        <input id="course_level"  name="code" matInput placeholder="Ex. DBC100" formControlName="course_level" required>
         <mat-error>
-          {{errors.course_code}}
+          {{errors.course_level}}
         </mat-error>
       </mat-form-field>
   </div>
-  <div>
-    <mat-form-field class="email-full-width">
-      <mat-label>Level </mat-label>
-      <input id="course_level" type="number" name="course_level" matInput placeholder="Ex. Level 1" formControlName="course_level" required min="1">
-      <mat-error>
-        {{errors.course_level}}
-      </mat-error>
-    </mat-form-field>
-</div>
+
 <div>
   <mat-form-field class="email-full-width">
     <mat-label>Start Date</mat-label>
@@ -72,6 +64,19 @@
   </mat-error>
 </mat-form-field>
 </div>
+
+  
+<mat-form-field style="width: 100%;" *ngIf="!addOnlyForm">
+  <mat-label>Status  </mat-label>
+  <mat-select formControlName="status" required>
+    <mat-option *ngFor="let status of statusList" [value]="status.value">
+      {{status.name}}
+    </mat-option>
+  </mat-select>
+  <!-- <mat-error>
+    {{errors.course_select}}
+  </mat-error> -->
+</mat-form-field>
 
     </form>
     <div>

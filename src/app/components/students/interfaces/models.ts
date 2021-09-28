@@ -1,6 +1,6 @@
 export interface Student{
   id:number | string;
-    full_name:string;
+    name:string;
     student_id:string;
     date_of_birth:string;
     contact:string;
