@@ -1,6 +1,6 @@
 
 
-<div class="p-padding-5 p-mt-3 p-col-12" *ngIf="messages?.length && messages[0]?.headerMessage"
+<div class="p-padding-5 p-mt-3 p-col-12 w-card" *ngIf="messages?.length && messages[0]?.headerMessage"
 [style.cursor]="clickFunction? 'pointer': 'default'" (click)="runClickFunction()">
   <div class="p-card card card-stats">
     <div class="card-header" data-background-color="" [ngStyle]="linearStyle">

@@ -4,10 +4,11 @@ export interface Student{
     student_id:string;
     date_of_birth:string;
     contact:string;
-    address:string;
+    email:string;
     gender:string;
     course_id:string;
     usertype:string;
+    status:string;
     
 
 }

@@ -35,8 +35,8 @@ export class StudentsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    this.loadStats()
-
+    Promise.resolve().then(()=> 
+    this.loadStats() );
 
   }
  

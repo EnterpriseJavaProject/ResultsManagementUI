@@ -71,6 +71,9 @@ import { ConfirmationComponentComponent } from './components/confirmation-compon
 import { AddModuleComponent } from './components/courses/components/add-module/add-module.component';
 import { JwtInterceptor } from './interceptors/jwt.interceptor';
 import { fakeBackendProvider } from './services/fake-backend';
+import { UsersListComponent } from './components/users/components/users-list/users-list.component';
+import { UsersFormComponent } from './components/users/components/users-form/users-form.component';
+import { UsersInfoComponent } from './components/users/components/users-info/users-info.component';
 
 
 @NgModule({
@@ -100,7 +103,10 @@ import { fakeBackendProvider } from './services/fake-backend';
     PasswordResetComponent,
     SideBarComponent,
     ConfirmationComponentComponent,
-    AddModuleComponent
+    AddModuleComponent,
+    UsersListComponent,
+    UsersFormComponent,
+    UsersInfoComponent
   ],
   imports: [
     BrowserModule,

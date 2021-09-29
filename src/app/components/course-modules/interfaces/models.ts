@@ -1,8 +1,8 @@
 export interface CourseModule{
     id:number | string;
     module_name:string;
-    module_code:string;
-    // course_id:number;
+    course_name:string;
+    staff_name:string;
     status:string;
 
 }

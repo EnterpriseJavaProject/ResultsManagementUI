@@ -140,7 +140,7 @@ loadCourses = () => {
           name: formValues.name,
           contact: formValues.contact,
           student_id: formValues.student_id,
-          date_of_birth: formValues. date_of_birth,
+          date_of_birth: formValues.date_of_birth,
           gender: formValues.gender,
           usertype: 'Student',
           email:formValues.email,
@@ -167,7 +167,15 @@ loadCourses = () => {
             course: formValues.course_name,
             id:this.student.id,
             student_id: this.student.student_id,
-            name:this.student.name
+            name:this.student.name,
+            contact: this.student.contact,
+            date_of_birth: this.student.date_of_birth,
+            gender: this.student.gender,
+            usertype: 'Student',
+            email:this.student.email,
+            status:this.student.status,
+
+
            }
            this.studentService.updateResource(studentData, "updateStudent").subscribe(
             (d: any) => {

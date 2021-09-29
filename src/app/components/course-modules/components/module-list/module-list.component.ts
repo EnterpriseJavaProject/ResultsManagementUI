@@ -34,8 +34,8 @@ export class ModuleListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    this.loadStats()
-
+    Promise.resolve().then(()=> 
+    this.loadStats() );
   }
   loadData = () => {
     this.moduleService.getAllModules().subscribe(modules => {
@@ -88,7 +88,7 @@ export class ModuleListComponent implements OnInit {
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '500px';
+    dialogConfig.height = '45vh';
         
       dialogConfig.data = {  
           ...data,
@@ -136,7 +136,7 @@ export class ModuleListComponent implements OnInit {
 
 
       deleteModule=(data)=>{
-        this.moduleService.deleteResource(`delete/${data}`)
+        this.moduleService.deleteResource(`deleteModulesById/${data}`)
        .subscribe (
          success => {
            return(

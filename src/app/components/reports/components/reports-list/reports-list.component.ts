@@ -19,6 +19,7 @@ export class ReportsListComponent implements OnInit {
 
   cardsData: CardItem[] = [
     { messages:[{headerMessage:'Total Students',headerValue:'14'} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
+    { messages:[{headerMessage: 'Total Staff',headerValue:'10'} ], headerIcon: 'fas fa-chalkboard-teacher',headerColor:'#50C8EF' },
     { messages:[{headerMessage: 'Total Courses',headerValue:'10'} ], headerIcon: 'fas fa-scroll',headerColor:'#68EF50' },
     { messages:[{headerMessage: 'Total Modules',headerValue:'10'} ], headerIcon: 'fas fa-th',headerColor:'#50C8EF' },
 
@@ -44,7 +45,7 @@ export class ReportsListComponent implements OnInit {
             icon:'fas fa-user-graduate',
             index: 0
         }, {
-            label: 'Lectures',
+            label: 'Staff',
             icon:'fas fa-chalkboard-teacher',
             index: 1
         }, 
@@ -73,25 +74,25 @@ ngOnInit(): void {
 getStudentColumns(){
   /*assume this is an api*/
   return new Promise((resolve,reject)=>{
-    resolve(['student_id', 'full_name', 'email', 'course',]);
+    resolve(['student_id', 'name', 'email', 'course',]);
   })
 }
 getLecturerColumns(){
   /*assume this is an api*/
   return new Promise((resolve,reject)=>{
-    resolve(['staff_id', 'full_name', 'email', 'course']);
+    resolve(['staff_id', 'name', 'email', 'usertype']);
   })
 }
 getCourseColumns(){
   /*assume this is an api*/
   return new Promise((resolve,reject)=>{
-    resolve(['course_name', 'course_code', 'level', 'start_date',]);
+    resolve(['course_name', 'course_level', 'course_start_date', 'certificate_issuedate',]);
   })
 }
 getModuleColumns(){
   /*assume this is an api*/
   return new Promise((resolve,reject)=>{
-    resolve(['module_name', 'module_code', 'course_name']);
+    resolve(['module_name', 'course_name', 'staff_name']);
   })
 }
 // ngOnInit() {
@@ -120,8 +121,10 @@ getModuleColumns(){
 
 // }
 async loadData() {
-  this.data = await this.studentService.getAllStudents();
-   this.dataSource = await new MatTableDataSource(this.data);
+  this.studentService.getAllStudent().subscribe(stdudents => {
+    this.data = stdudents;
+    this.dataSource = new MatTableDataSource(this.data)
+  })
   return this.getStudentColumns().then((cols:string[])=>{
     this.displayedColumns.splice(0, this.displayedColumns.length)
     this.displayedColumns.push(...cols,'modification');   
@@ -130,8 +133,10 @@ async loadData() {
   }
 
  async loadLecturers(){
-    this.data= await this.staffService.getAllStaff();
-    this.dataSource =await new MatTableDataSource(this.data);
+  this.staffService.getAllStaffs().subscribe(staffs => {
+    this.data = staffs;
+    this.dataSource = new MatTableDataSource(this.data)
+  })
     return this.getLecturerColumns().then((cols:string[])=>{
       this.displayedColumns.splice(0, this.displayedColumns.length)
       this.displayedColumns.push(...cols,'modification');     
@@ -140,8 +145,10 @@ async loadData() {
   }
 
  async loadCourses(){
-    this.data=await this.courseService.getAllCourses();
-    this.dataSource =await new MatTableDataSource(this.data);
+ this.courseService.getAllCourse().subscribe(courses=>{
+     this.data =  courses;
+     this.dataSource = new MatTableDataSource(this.data);
+    })
     return this.getCourseColumns().then((cols:string[])=>{
       this.displayedColumns.splice(0, this.displayedColumns.length)
       this.displayedColumns.push(...cols,'modification');
@@ -150,8 +157,10 @@ async loadData() {
   }
 
   async loadModules(){
-    this.data=await this.moduleService.getAllModuless();
-    this.dataSource =await new MatTableDataSource(this.data);
+    this.moduleService.getAllModules().subscribe(modules => {
+      this.data = modules;
+      this.dataSource = new MatTableDataSource(this.data)
+    })
    return this.getModuleColumns().then((cols:string[])=>{
      this.displayedColumns.splice(0, this.displayedColumns.length)
       this.displayedColumns.push(...cols,'modification');

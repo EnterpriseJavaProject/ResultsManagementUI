@@ -5,7 +5,7 @@ import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { CourseModule } from '../../../../../.history/src/app/components/course-modules/interfaces/models_20210917135700';
 
-const ENDPOINT = "lectures"
+const ENDPOINT = "modules"
 
 @Injectable({
   providedIn: 'root'

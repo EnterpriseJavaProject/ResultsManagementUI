@@ -38,8 +38,8 @@ export class StaffListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    this.loadStats()
-    // console.log(this.data.map(({id, usertype}) => ({id, usertype})))
+    Promise.resolve().then(()=> 
+    this.loadStats() );    // console.log(this.data.map(({id, usertype}) => ({id, usertype})))
 
   }
 

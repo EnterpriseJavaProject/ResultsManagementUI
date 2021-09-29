@@ -21,13 +21,19 @@ export class ModuleFormComponent implements OnInit {
 
 errors = errorMessages;
   moduleForm:FormGroup;
+  
   course_module:CourseModule;
-  condata:[];
+  condata:any
   tyye:any;
   courseInstructors:any[]
   courseList:any[]
+  updateList:any[]
   course_id:any
-
+  course_name = 'option2';
+  statusList=[
+    {"name": "Active", "value":"Active"},
+    {"name": "InActive",  "value": "InActive"}
+  ]
   constructor(    
     private fb: FormBuilder,
     private moduleService:ModuleService,
@@ -36,7 +42,7 @@ errors = errorMessages;
     private courseService:CoursesService,
     @Inject(MAT_DIALOG_DATA) data,
   ) {
-    this.condata = data.rowData,
+    this.condata = data,
     this.tyye=data.type }
 
   
@@ -45,8 +51,9 @@ errors = errorMessages;
  this.loadCourses()
       this.moduleForm =  this.fb.group({
         module_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
-        course_name: ['', [Validators.required]],
-        lecturer:['', [Validators.required]],
+        course_name: [''],
+        staff_name:['', [Validators.required]],
+        update_name:[]
      
   
   
@@ -68,15 +75,18 @@ errors = errorMessages;
 loadCourses = () => {
   this.courseService.getAllCourse().subscribe(courses=>{
     this.courseList = courses.map(({id, course_name}) => ({id, course_name}))
+    this.updateList = courses.map(({id, course_name}) => ({id, course_name}))
    } )
   }
 
     
   
     ngAfterViewInit(){
-      if(this.condata){
-        this.moduleForm.patchValue(this.condata)
-    
+      if(this.condata?.id){
+        this.course_module = {...this.condata};
+        const formValues : any= {...this.course_module};
+        Promise.resolve().then(()=>  (this.moduleForm.patchValue(formValues),
+        this.moduleForm.patchValue({update_name:this.condata.course_name})));
       }
     }
 
@@ -85,32 +95,29 @@ loadCourses = () => {
       this.moduleForm.patchValue({course_name:this.courseList[data].course_name})
 
       this.course_id= this.courseList[data].id
-      
-      console.log(this.course_id + this.moduleForm.value)
+      // console.log(this.course_id + this.moduleForm.get('course_name').value)
       // console.log("selected --->"+this.courseList[data].id+' '+this.courseList[data].course_name);
-
-      
     }
 
     onAdd(){
-      // if (this.moduleForm.valid){
-      //   const formValues = this.moduleForm.getRawValue();
+      if (this.moduleForm.valid){
+       const formValues = this.moduleForm.getRawValue();
+        const moduleData ={
+          module_name :formValues.module_name,
+          course_name: formValues.course_name,
+          staff_name : formValues.lecturer,
+          course_id:this.course_id,
+          status:'Active'
+        }
+        console.log(moduleData)
+        this.moduleService.storeResource(moduleData,"modules/saveModules").subscribe(
+          (d: any) => {
   
-      //   const moduleData ={
-      //     module_name :formValues.module_name,
-      //     course_name: formValues.course_name,
-      //     staff_name : formValues.lecturer,
-      //     course_id:this.condata['id'],
-      //     status:'Active'
-      //   }
-      //   this.moduleService.storeResource(moduleData,"modules/saveModules").subscribe(
-      //     (d: any) => {
-  
-      //       this.close()
-      //       successAlert('Module Created Successfully')
-      //          }
-      //    )
-      // }
+            this.close()
+            successAlert('Module Created Successfully')
+               }
+         )
+      }
     }
   }
   

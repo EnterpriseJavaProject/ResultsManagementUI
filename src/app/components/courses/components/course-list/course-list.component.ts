@@ -35,7 +35,8 @@ export class CourseListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    this.loadStats()
+    Promise.resolve().then(()=> 
+    this.loadStats() );
   }
   loadData = () => {
     this.courseService.getAllCourse().subscribe(courses=>{
@@ -55,7 +56,7 @@ export class CourseListComponent implements OnInit {
           this.totalCourses = totcourses;
           this.cardsData= [
             { messages:[{headerMessage:'Total Courses',headerValue:this.totalCourses} ], headerIcon: 'fas fa-scroll', headerColor:'#ef5350'},
-            { messages:[{headerMessage: 'Active Courses',headerValue:this.activeCourses} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
+            { messages:[{headerMessage: 'Active Courses',headerValue:this.activeCourses || '3'} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
             { messages:[{headerMessage: 'Inactive Courses',headerValue:this.inactiveCourses} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
         
           ];

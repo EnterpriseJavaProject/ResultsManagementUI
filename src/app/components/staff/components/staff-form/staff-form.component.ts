@@ -114,6 +114,7 @@ loadCourses = () => {
         email:formValues.email,
         usertype: formValues.usertype,
         status:'Active',
+        staff_id:formValues.staff_id
 
        }
        this.staffService.storeResource(userData,"users/saveUsers").subscribe(

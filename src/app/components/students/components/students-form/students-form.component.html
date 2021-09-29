@@ -16,7 +16,7 @@
         <div >
           <mat-form-field class="email-full-width">
             <mat-label>Full Name</mat-label>
-            <input type="full_name" id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="name" required>
+            <input  id="full_name"  name="full_name" matInput placeholder="Ex. John Doe" formControlName="name" required>
             <mat-error>
               {{errors.fullName}}
             </mat-error>          
@@ -130,7 +130,7 @@
       <button  mat-raised-button color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
       <button  *ngIf="addOnlyForm" mat-raised-button color="primary" (click)="onAdd()" [disabled]="studentForm.invalid" >Add</button>  
       <button  *ngIf="updateOnlyForm"  mat-raised-button color="primary" (click)="onUpdate()"  >Update</button>  
-      <button  *ngIf="addCourseForm"  mat-raised-button color="primary" (click)="onUpdate()" [disabled]="courseForm.invalid" >Add Course</button> 
+      <button  *ngIf="addCourseForm"  mat-raised-button color="primary" (click)="addToCourse()" [disabled]="courseForm.invalid" >Add Course</button> 
   </mat-dialog-actions>
   </div>
   

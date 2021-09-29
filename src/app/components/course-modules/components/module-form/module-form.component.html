@@ -21,11 +21,11 @@
         </mat-form-field>
       </div>
    
-      <div>
+      <div  *ngIf="addOnlyForm" >
     <mat-form-field  class="email-full-width">
       <mat-label>Select Course </mat-label>
-      <mat-select formControlName="course_name" (selectionChange)="onChange($event.value)">
-        <mat-option *ngFor="let course of courseList; let i = index;" [value]="i" [ident] ="course.id">
+      <mat-select formControlName="course_name" [(value)]="course_name" (selectionChange)="onChange($event.value)">
+        <mat-option *ngFor="let course of courseList; let i = index;" [value]="i">
           {{course.course_name}}
         </mat-option>
       </mat-select>
@@ -34,10 +34,23 @@
       </mat-error>
     </mat-form-field>
   </div>
+  <div  *ngIf="!addOnlyForm" >
+    <mat-form-field  class="email-full-width">
+      <mat-label>Select Coursee </mat-label>
+      <mat-select formControlName="update_name"  [(value)]="course_name">
+        <mat-option *ngFor="let course of updateList" [value]="course.course_name">
+          {{course.course_name}}
+        </mat-option>
+      </mat-select>
+      <!-- <mat-error>
+        {{errors.course_name}}
+      </mat-error> -->
+    </mat-form-field>
+</div>
   <div>
     <mat-form-field  class="email-full-width">
       <mat-label>Select Instructor </mat-label>
-      <mat-select formControlName="lecturer">
+      <mat-select formControlName="staff_name">
         <mat-option *ngFor="let lecturer of courseInstructors" [value]="lecturer.name">
           {{lecturer.name}}
         </mat-option>
@@ -61,7 +74,7 @@
     <button  mat-raised-button 
     color="warn"  (click)="close()">Close</button>  &nbsp;&nbsp;
     <button  *ngIf="addOnlyForm" mat-raised-button
-    color="primary"  >Add</button>  
+    color="primary" (click)="onAdd()" [disabled]="moduleForm.invalid">Add</button>  
     <button  *ngIf="!addOnlyForm"  mat-raised-button
     color="primary"  >Update</button>  
 </mat-dialog-actions>
