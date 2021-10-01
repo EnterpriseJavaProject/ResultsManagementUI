@@ -177,9 +177,8 @@ cons(element){
       this.dataSource.sort = this.sort;
     }
     setTimeout(() => this.dataSource.paginator = this.paginator);
-   
-
 }
+
   tabChanged = (tabChangeEvent: MatTabChangeEvent)=> {
    switch (tabChangeEvent.index) {
           case 0:

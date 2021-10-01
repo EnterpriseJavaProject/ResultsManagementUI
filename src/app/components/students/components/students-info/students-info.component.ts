@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { AfterViewInit, Component, Input, OnInit,Inject, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatSort } from '@angular/material/sort';
 import {SelectionModel} from '@angular/cdk/collections'; 
@@ -8,6 +8,8 @@ import { Course } from 'src/app/components/courses/interfaces/model';
 import { CoursesService } from 'src/app/components/courses/services/course.service';
 import { StudentsService } from '../../services/students.service';
 import { Student } from '../../interfaces/models';
+import { MatDialogConfig,MatDialogRef, MAT_DIALOG_DATA } from "@angular/material/dialog";
+import { StudentsListComponent } from '../students-list/students-list.component';
 
 @Component({
   selector: 'app-students-info',
@@ -18,6 +20,7 @@ export class StudentsInfoComponent implements OnInit {
   data:any[]
   tableData:any[]
   studentInfo:Student;
+  condata:any;
 
   displayedColumns: string[] = ['course_name', 'course_code', 'start_date','action'];
 dataSource: MatTableDataSource<Course>=new MatTableDataSource([]);
@@ -25,7 +28,10 @@ dataSource: MatTableDataSource<Course>=new MatTableDataSource([]);
   
   constructor(private courseService:CoursesService,
     private studentService:StudentsService,
-    private router:Router) { }
+
+    private router:Router) {
+    
+     }
 
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
@@ -36,8 +42,11 @@ dataSource: MatTableDataSource<Course>=new MatTableDataSource([]);
   
 
   ngOnInit(){
-    this.loadData();
-    this.loadInfo()
+    // return Promise.resolve().then(()=> 
+    //   this.loadInfo()),
+      this.loadData()
+this.loadInfo()
+ 
 
   }
   loadData = () => {
@@ -45,7 +54,7 @@ dataSource: MatTableDataSource<Course>=new MatTableDataSource([]);
      this.dataSource = new MatTableDataSource(this.tableData)
     }
 
-loadInfo=()=>{
+ async loadInfo(){
   // this.studentService.getById().subscribe(studentInfo => {
   //   this.studentInfo = studentInfo;
   //   console.log(this.studentInfo)
@@ -53,7 +62,7 @@ loadInfo=()=>{
 
   // });
   this.studentService.getAllStudent().subscribe(result => {  
-    this.studentInfo = result.find(a => a.id == localStorage.student_id); 
+    this.studentInfo =  result.find(a => a.id == localStorage.student_id); 
     console.log(this.studentInfo)} )
 
 

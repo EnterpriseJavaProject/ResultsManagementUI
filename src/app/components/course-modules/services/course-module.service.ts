@@ -3,7 +3,7 @@ import { moduleList } from '../utils/constants';
 import { ResourceService } from '../../../services/resources';
 import { HttpClient } from '@angular/common/http';
 import { map } from 'rxjs/operators';
-import { CourseModule } from '../../../../../.history/src/app/components/course-modules/interfaces/models_20210917135700';
+import { CourseModule } from '../interfaces/models';
 
 const ENDPOINT = "modules"
 
