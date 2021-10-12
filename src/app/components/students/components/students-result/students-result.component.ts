@@ -5,7 +5,7 @@ import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-students-result',
   templateUrl: './students-result.component.html',
-  styleUrls: ['./students-result.component.css']
+  styleUrls: ['./students-result.component.scss']
 })
 export class StudentsResultComponent implements OnInit {
   @ViewChild('content') content:ElementRef; 

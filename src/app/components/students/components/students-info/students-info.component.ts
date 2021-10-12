@@ -19,7 +19,7 @@ import { StudentsListComponent } from '../students-list/students-list.component'
 export class StudentsInfoComponent implements OnInit {
   data:any[]
   tableData:any[]
-  studentInfo:Student;
+  studentInfo:Student | undefined;
   condata:any;
 
   displayedColumns: string[] = ['course_name', 'course_code', 'start_date','action'];
