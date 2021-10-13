@@ -35,17 +35,21 @@
     </mat-form-field>
   </div>
   <div  *ngIf="!addOnlyForm" >
-    <mat-form-field  class="email-full-width">
+    <mat-form-field style="width: 100%;" [disabled]='true'>
+      <mat-label> Course Name</mat-label>
+      <input id="course_name"  [disabled]='true'  name="course_name" matInput  formControlName="update_name" >
+    </mat-form-field>
+    <!-- <mat-form-field  class="email-full-width">
       <mat-label>Select Coursee </mat-label>
       <mat-select formControlName="update_name"  [(value)]="course_name">
         <mat-option *ngFor="let course of updateList" [value]="course.course_name">
           {{course.course_name}}
         </mat-option>
-      </mat-select>
+      </mat-select> -->
       <!-- <mat-error>
         {{errors.course_name}}
       </mat-error> -->
-    </mat-form-field>
+    <!-- </mat-form-field> -->
 </div>
   <div>
     <mat-form-field  class="email-full-width">
@@ -59,6 +63,19 @@
         {{errors.course_name}}
       </mat-error> -->
     </mat-form-field>
+</div>
+<div   *ngIf="!addOnlyForm">
+  <mat-form-field  class="email-full-width">
+    <mat-label>Status  </mat-label>
+  <mat-select formControlName="status" required>
+    <mat-option *ngFor="let status of statusList" [value]="status.value">
+      {{status.name}}
+    </mat-option>
+  </mat-select>
+  <!-- <mat-error>
+    {{errors.course_select}}
+  </mat-error> -->
+</mat-form-field>
 </div>
 
     </form>
@@ -76,7 +93,7 @@
     <button  *ngIf="addOnlyForm" mat-raised-button
     color="primary" (click)="onAdd()" [disabled]="moduleForm.invalid">Add</button>  
     <button  *ngIf="!addOnlyForm"  mat-raised-button
-    color="primary"  >Update</button>  
+    color="primary"  (click)="onUpdate()">Update</button>  
 </mat-dialog-actions>
 </div>
 

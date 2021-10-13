@@ -1,21 +1,40 @@
 <div class="info">
+  <h1>Student Info</h1>
+<br>
     <img src="assets/student.svg" alt="student" style="height: 250px;"/>
-    <div class="details" *ngIf="studentInfo">    
-      <h1>Student Info</h1>
-        <p><span>Full Name </span>: {{studentInfo.name}}</p>
-        <p><span>Student Id </span>: {{studentInfo['student_id']}}</p>
-        <p><span>Date of Birth </span>: {{studentInfo['date_of_birth']}}</p>
-        <p><span>Email Address </span>: {{studentInfo['email']}}</p>
-        <p><span>Contact </span>: {{studentInfo['contact']}}</p>
-
+    <div class="details" *ngIf="studentInfo">   
+      <table>
+        <tr>
+          <th>Full name</th>
+          <td> {{studentInfo.name}}</td>
+        </tr>
+        <tr>
+          <th>Student Id</th>
+          <td>{{studentInfo.student_id}}</td>
+        </tr>
+     <tr>
+    <th>Date of Birth</th>
+    <td>{{studentInfo.date_of_birth}}</td>
+        </tr>
+        <tr>
+          <th>Email Address</th>
+          <td>{{studentInfo.email}}</td>
+        </tr>
+        <tr>
+          <th>Contact</th>
+          <td>{{studentInfo.contact}}</td>
+        </tr>
+      </table> 
     </div>  
     </div>
     <br>
+    <mat-divider></mat-divider>
 
+<br>
     <div class="staff-table">
         <h2>Courses Enrolled</h2>
-        <mat-form-field>
-          <mat-label>Filter</mat-label>
+        <mat-form-field style="width: 100%;">
+          <mat-label>Search</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
         </mat-form-field>
         <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">

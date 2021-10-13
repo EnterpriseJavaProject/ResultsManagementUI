@@ -32,7 +32,7 @@
 
 <br>
     <div> 
-        <button id="button" #button class="print-button" data-html2canvas-ignore="true" mat-raised-button color="primary" (click)="openPDF()">
+        <button id="button" #button class="print-button" data-html2canvas-ignore="true" mat-raised-button color="primary" (click)="opPrint()">
             <mat-icon>printer</mat-icon>
             Print
         </button>
@@ -46,7 +46,7 @@
     <th rowspan="2"> Your mark</th>
     <th rowspan="2">grade</th>
     <tr>
-        <th colspan="1">Module</th>
+        <th colspan="1" >Module</th>
         <th colspan="1">full marks</th>      
     </tr>
     <tr>
@@ -85,44 +85,18 @@
     </tr>
 </table>
 
-<!-- 
-    <h1 style="text-align: center;">Student Result Details</h1>
-    
-    <div class="stud-info">
-        <span>Student Name :</span><br>
-        <span>Student ID :</span><br>
-        <span>Course Name :</span><br>
-        <span>Course Code :</span>
-    </div> -->
     <br>
-    <!-- <div> 
-        <button id="button" #button class="print-button" data-html2canvas-ignore="true" mat-raised-button color="primary" (click)="openPDF()">
-            <mat-icon>printer</mat-icon>
-            Print
-        </button>
-    </div> -->
-    <br>
-    <br>
-    <br>
-    <!-- <div class="table-div">
-    
-        <table  class="rtable">
-            <th style="width: 10px;">#</th>
-            <th>Module Name</th>
-            <th>Module Code</th>
-            <th>Total Score </th>
-            <th>Grade</th>
-            <tr *ngFor="let item of Data"> 
-                <td style="width: 10px;"></td>   
-                <th>{{item.module_name}}</th>    
-                <th>{{item.module_code}}</th>    
-                <th>{{item.score}}</th>    
-                <th>{{item.grade}}</th>    
-    
-            </tr>
-          
-          
-        </table>
+
+    <div class="footer">
+        <div>
+            <img src="assets/secretary.png">
+            <h4 align="center">Academic Secretary</h4>
+        </div>
+        <div class="footer-right">
+            <img src="assets/director.png">
+            <h4 align="center">Director of Studies</h4>
+        </div>
     </div>
-     -->
+    
+  
     </div>

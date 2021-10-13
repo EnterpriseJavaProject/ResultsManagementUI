@@ -62,4 +62,33 @@ export class StudentsResultComponent implements OnInit {
     }
  });
 }
+
+opPrint(){
+  window.print()
+//   const printContent = document.getElementById("content");
+// const WindowPrt = window.open('', '', 'left=0,top=0,width=900,height=900,toolbar=0,scrollbars=0,status=0');
+// WindowPrt.document.write(printContent.innerHTML);
+// WindowPrt.document.close();
+// WindowPrt.focus();
+// WindowPrt.print();
+// WindowPrt.close();
+}
+
+// <script>
+// $(function($) {
+
+// });
+
+
+// function CallPrint(strid) {
+// var prtContent = document.getElementById("exampl");
+// var WinPrint = window.open('', '', 'left=0,top=0,width=800,height=900,toolbar=0,scrollbars=0,status=0');
+// WinPrint.document.write(prtContent.innerHTML);
+// WinPrint.document.close();
+// WinPrint.focus();
+// WinPrint.print();
+// WinPrint.close();
+// }
+// </script>
+
 }

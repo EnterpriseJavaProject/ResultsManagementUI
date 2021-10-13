@@ -1,21 +1,39 @@
    
-    <br>
     <div >
-    <img src="assets/course.svg" alt="staff" style="height: 250px;"/>
-    <div class="details">
       <h1>Course Info</h1>
-        <p><span>Course Name </span>: Camila</p>
-        <p><span>Course Code </span>: Camila</p>
-        <p><span>Lecturer </span>: Camila</p>
-        <p><span>Total Modules </span>: Camila</p>
-        <p><span>Total Students </span>: Camila</p>
-
+<br>
+    <img src="assets/course.svg" alt="staff" style="height: 250px;"/>
+  
+    <div class="details" *ngIf="courseInfo">   
+      <table>
+        <tr>
+          <th>Course name</th>
+    
+    <td> {{courseInfo.course_name}}</td>
+        </tr>
+        <tr>
+          <th>Course level</th>
+          <td>{{courseInfo.course_level}}</td>
+        </tr>
+  
+        <tr>
+          <th>Total Modules</th>
+          <td>{{courseInfo.code}}</td>
+        </tr>
+        <tr>
+          <th>Total Students</th>
+          <td>{{courseInfo.code}}</td>
+        </tr>
+      </table> 
     </div>  
     </div>
     <br>
+    <mat-divider></mat-divider>
+
+<br>
     <div class="staff-table">
         <h3>Course Modules</h3>
-        <mat-form-field>
+        <mat-form-field style="width: 100%;">
           <mat-label>Filter</mat-label>
           <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
         </mat-form-field>

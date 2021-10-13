@@ -9,11 +9,12 @@ import { ModuleService } from '../../services/course-module.service';
 @Component({
   selector: 'app-module-info',
   templateUrl: './module-info.component.html',
-  styleUrls: ['./module-info.component.css']
+  styleUrls: ['./module-info.component.scss']
 })
 export class ModuleInfoComponent implements OnInit {
   data:any[]
   tableData:any[]
+  moduleInfo:CourseModule|undefined
 
   displayedColumns: string[] = ['module_name', 'module_code', 'course_name'];
 dataSource: MatTableDataSource<CourseModule>=new MatTableDataSource([]);
@@ -26,12 +27,22 @@ dataSource: MatTableDataSource<CourseModule>=new MatTableDataSource([]);
 
   ngOnInit(): void {
     this.loadData();
+    this.loadInfo()
   }
   loadData = () => {
     this.tableData= this.moduleService.getAllModuless();
      this.dataSource = new MatTableDataSource(this.tableData)
     }
-  
+    async loadInfo(){
+
+      this.moduleService.getAllModules().subscribe(result => {  
+        this.moduleInfo =  result.find(a => a.id == localStorage.module_id); 
+        console.log(this.moduleInfo)} )
+    
+    
+    
+    }
+      
     ngAfterViewInit() {
       if(this.dataSource){
         this.dataSource.paginator = this.paginator;

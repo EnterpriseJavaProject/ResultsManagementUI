@@ -14,7 +14,7 @@ import { StudentsListComponent } from '../students-list/students-list.component'
 @Component({
   selector: 'app-students-info',
   templateUrl: './students-info.component.html',
-  styleUrls: ['./students-info.component.css']
+  styleUrls: ['./students-info.component.scss']
 })
 export class StudentsInfoComponent implements OnInit {
   data:any[]

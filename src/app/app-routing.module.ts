@@ -15,6 +15,7 @@ import { StudentsInfoComponent } from './components/students/components/students
 import { StudentsListComponent } from './components/students/components/students-list/students-list.component';
 import { StudentsResultComponent } from './components/students/components/students-result/students-result.component';
 import { UploadGradeComponent } from './components/upload-grade/components/upload-grade/upload-grade.component';
+import { UsersInfoComponent } from './components/users/components/users-info/users-info.component';
 import { UsersListComponent } from './components/users/components/users-list/users-list.component';
 import { AuthGuard } from './guards/auth.guard';
 import { Role } from './interfaces/all-models';
@@ -36,6 +37,7 @@ const routes: Routes = [
   {path: 'student-result' , component: StudentsResultComponent , pathMatch: 'full'},
   {path: 'search-grade' , component: SearchGradeComponent , pathMatch: 'full'},
   {path: 'users-list' , component: UsersListComponent , pathMatch: 'full'},
+  {path: 'users-info' , component: UsersInfoComponent , pathMatch: 'full'},
 
   
   { path: '', redirectTo: '/login', pathMatch: 'full' },

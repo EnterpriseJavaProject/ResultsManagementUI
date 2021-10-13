@@ -1,4 +1,4 @@
-import { Component, OnInit,ViewChild } from '@angular/core';
+import { Component, HostListener, OnInit,ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay } from 'rxjs/operators';
@@ -12,6 +12,15 @@ import { AuthService } from '../../../services/auth.service';
   styleUrls: ['./side-bar.component.css']
 })
 export class SideBarComponent implements OnInit {
+  // @HostListener("window:beforeprint", ["$event"])
+  // async beforePrint($event: any) {
+  //     await this.beforePrinting();
+  // }
+
+  // @HostListener("window:afterprint", ["$event"])
+  // async afterPrint($event: any) {
+  //     await this.afterPrinting();
+  // }
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
@@ -37,7 +46,48 @@ export class SideBarComponent implements OnInit {
         }
       });
   }
+beforePrinting(){
+  console.log("Preparing printing");
 
+  const elements = document.getElementsByClassName("tool");
+  const elements1 = document.getElementsByClassName("side");
+  const cont = document.getElementsByClassName("content");
+
+  for (let i = 0; i < (elements && elements1.length); i++) {
+      const element = elements.item(i);
+      const elemento = elements1.item(i);
+      const conte = cont.item(i);
+
+      
+      if (element) {
+          const anyElement = element as any;
+          const sideElement = elemento as any;
+          const contentElement = conte as any;
+
+          const relation = anyElement.clientWidth / window.innerWidth;
+          const newWidth = Math.round(800 * relation);
+          console.log("New Width: " + newWidth);
+          // anyElement.style.width = newWidth + "px";
+          anyElement.style.display = 'none'
+          sideElement.style.display = 'none'
+          contentElement.style.width = "100vw";
+          contentElement.style.height = "100vh";
+          // contentElement.style.position = "absolute";
+          // contentElement.style.right = "0px";
+      }
+  }
+  console.log("Waiting for changes to be displayed");
+  // const promise = new Promise((resolve) => {
+  //     setTimeout(() => resolve(), 1000);
+  // });
+  // await promise;
+  // console.log("Ready to print");
+
+
+}
+afterPrinting(){
+
+}
   openReset() {  
     // debugger;  
     const dialogConfig = new MatDialogConfig();  

@@ -76,7 +76,8 @@ export class ModuleListComponent implements OnInit {
     }
   }
   openInfoDialog(data) {  
-    this.router.navigate(['/module-info'])  }
+    this.router.navigate(['/module-info']) 
+    localStorage.setItem('module_id',data.id) }
 
     openDialog(data) {  
       // debugger;  
@@ -88,7 +89,7 @@ export class ModuleListComponent implements OnInit {
         'left': '30vw'  
     };  
     dialogConfig.width = '600px';  
-    dialogConfig.height = '45vh';
+    dialogConfig.height = '49vh';
         
       dialogConfig.data = {  
           ...data,

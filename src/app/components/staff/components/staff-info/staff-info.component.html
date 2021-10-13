@@ -1,19 +1,41 @@
    
     <div >
+      <h1>Staff Info</h1>
+<br>
         <img src="assets/staff.svg" alt="staff" style="height: 250px;"/>
-        <div class="details">
-          <h1>Staff Info</h1>
-            <p><span>Full Name </span>: Camila</p>
-            <p><span>Staff Id </span>: Camila</p>
-            <p><span>UserType </span>: Camila</p>
-            <p><span>Email Address </span>: Camila</p>
-            <p><span>Contact </span>: Camila</p>
-    
+     
+        <div class="details" *ngIf="staffInfo">   
+          <table>
+            <tr>
+              <th>Full name</th>
+              <td> {{staffInfo.name}}</td>
+            </tr>
+            <tr>
+              <th>Staff Id</th>
+              <td>{{staffInfo.staff_id}}</td>
+            </tr>
+         <tr>
+        <th>Usertype</th>
+        <td>{{staffInfo.usertype}}</td>
+            </tr>
+            <tr>
+              <th>Email Address</th>
+              <td>{{staffInfo.email}}</td>
+            </tr>
+            <tr>
+              <th>Contact</th>
+              <td>{{staffInfo.contact}}</td>
+            </tr>
+          </table> 
         </div>  
         </div>
+        <br>
+        <mat-divider></mat-divider>
+    
+    <br>
         <div class="staff-table">
             <h3>Courses</h3>
-            <mat-form-field>
+            <mat-form-field style="width: 100%;">
               <mat-label>Search</mat-label>
               <input matInput (keyup)="applyFilter($event)" placeholder="Ex. Mia" #input>
           </mat-form-field>

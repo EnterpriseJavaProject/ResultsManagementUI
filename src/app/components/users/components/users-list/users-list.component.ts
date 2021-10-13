@@ -74,7 +74,8 @@ export class UsersListComponent implements OnInit {
   }
 
   openInfoDialog(data) {  
-    this.router.navigate(['/module-info'])  }
+    this.router.navigate(['/users-info']) 
+    localStorage.setItem('users_id',data.id) }
 
     openDialog(data) {  
       // debugger;  

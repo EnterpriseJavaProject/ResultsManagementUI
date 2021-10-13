@@ -80,8 +80,9 @@ export class CourseListComponent implements OnInit {
     }
   }
   openInfoDialog(data) {  
-    this.router.navigate(['/course-info'])  }
-
+    this.router.navigate(['/course-info'])  
+    localStorage.setItem('course_id',data.id)
+  }
     openDialog(data) {  
       // debugger;  
       const dialogConfig = new MatDialogConfig();  

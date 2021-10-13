@@ -53,7 +53,8 @@ errors = errorMessages;
         module_name: ['', [Validators.required, Validators.minLength(2), Validators.maxLength(50)]],
         course_name: [''],
         staff_name:['', [Validators.required]],
-        update_name:[]
+        update_name:[{value: '', disabled:true}],
+        status:['']
      
   
   
@@ -105,7 +106,7 @@ loadCourses = () => {
         const moduleData ={
           module_name :formValues.module_name,
           course_name: formValues.course_name,
-          staff_name : formValues.lecturer,
+          staff_name : formValues.staff_name,
           course_id:this.course_id,
           status:'Active'
         }
@@ -118,6 +119,27 @@ loadCourses = () => {
                }
          )
       }
+    }
+
+    onUpdate(){
+      const formValues = this.moduleForm.getRawValue();
+      const updateData = {
+        id:this.course_module.id,
+          module_name :formValues.module_name,
+          course_name: formValues.course_name,
+          staff_name : formValues.staff_name,
+          course_id:this.course_module.course_id,
+          status:formValues.status
+       } 
+
+       if(this.course_module.id){
+        this.moduleService.updateResource(updateData, "updateModules").subscribe(
+          (d: any) => {
+            this.close()
+            successAlert('Module Updated Successfully')
+         }
+       )
+       }
     }
   }
   

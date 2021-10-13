@@ -71,3 +71,19 @@
  .right-top{
    margin-right: 4%;
  }
+
+ @media print {
+  /* .content{
+    left: 0;
+    top: 0;
+    width: 816px;
+    height: 1054px;
+} */
+.side{
+  display: none;
+}
+.tool{
+  display: none;
+}
+}
+
