@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { moduleList } from '../utils/constants';
 import { ResourceService } from '../../../services/resources';
 import { HttpClient } from '@angular/common/http';
-import { map } from 'rxjs/operators';
+import { filter, map } from 'rxjs/operators';
 import { CourseModule } from '../interfaces/models';
 
 const ENDPOINT = "modules"
@@ -39,5 +39,23 @@ getTotalModules(){
 return super.getResources(null,'modules/countModule')  
 }
 
+getModuleStats(){
+  return super.getResources(null,'modules/getAllModules').pipe(
+    map((response:any) => {
+      let responseArray: any[] = response;
+      let activeArray = responseArray.filter(m=>m.status=="Active")
+      let inactiveArray =responseArray.filter(m=>m.status=="InActive")
+   
+      return ({total:responseArray.length,active:activeArray.length,inactive:inactiveArray.length});
+    })  )
+}
 
+getInactiveModules(){
+  return super.getResources(null,'modules/getAllModules').pipe(
+    map((response:any) => {
+      let activeArray: any[] = response;
+   
+      return activeArray.filter(m=>m.status=="InActive") as CourseModule[];
+    })  ) 
+}
 }

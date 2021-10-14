@@ -33,5 +33,15 @@ getTotalUsers(){
 return super.getResources(null,'users/countUsers')  
 }
 
+getUsersStats(){
+  return super.getResources(null,'users/getAllUsers').pipe(
+    map((response:any) => {
+      let responseArray: any[] = response;
+      let activeArray = responseArray.filter(m=>m.status=="Active")
+      let inactiveArray =responseArray.filter(m=>m.status=="InActive")
+   
+      return ({total:responseArray.length,active:activeArray.length,inactive:inactiveArray.length});
+    })  )
+}
 
 }

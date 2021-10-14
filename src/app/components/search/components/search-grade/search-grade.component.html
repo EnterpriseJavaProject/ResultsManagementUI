@@ -10,7 +10,7 @@
             </mat-form-field>
 
             <mat-form-field style="width: 100%;">
-                <mat-label>Select Course Module </mat-label>
+                <mat-label>Select Course  </mat-label>
                 <mat-select formControlName="course_id" required>
                   <mat-option *ngFor="let classroom of classroom" [value]="classroom.name">
                     {{classroom.name}}

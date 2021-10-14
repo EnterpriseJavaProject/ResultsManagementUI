@@ -47,4 +47,14 @@ getById(){
   )
 }
 
+getStudentStats(){
+  return super.getResources(null,'students/getAllStudent').pipe(
+    map((response:any) => {
+      let responseArray: any[] = response;
+      let activeArray = responseArray.filter(m=>m.status=="Active")
+      let inactiveArray =responseArray.filter(m=>m.status=="InActive")
+   
+      return ({total:responseArray.length,active:activeArray.length,inactive:inactiveArray.length});
+    })  )
+}
 }

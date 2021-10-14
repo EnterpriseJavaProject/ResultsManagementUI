@@ -42,18 +42,17 @@ export class CourseListComponent implements OnInit {
     this.courseService.getAllCourse().subscribe(courses=>{
       this.data = courses;
       this.dataSource = new MatTableDataSource(this.data)
-      this.activeCourses=this.data.filter(m=>m.status=="Active").length
-      this.inactiveCourses = this.data.length - this.activeCourses
-
     }    )
     }
 
 
 
     loadStats=()=>{
-      this.courseService.getTotalCourses().subscribe(
+      this.courseService.getCourseStats().subscribe(
         totcourses =>{
-          this.totalCourses = totcourses;
+          this.totalCourses = totcourses.total;
+          this.activeCourses = totcourses.active
+          this.inactiveCourses = totcourses.inactive
           this.cardsData= [
             { messages:[{headerMessage:'Total Courses',headerValue:this.totalCourses} ], headerIcon: 'fas fa-scroll', headerColor:'#ef5350'},
             { messages:[{headerMessage: 'Active Courses',headerValue:this.activeCourses || '3'} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },

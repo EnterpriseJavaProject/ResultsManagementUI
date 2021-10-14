@@ -3,7 +3,7 @@
 
     <h1>Students List</h1>
     <ng-container *ngFor="let dashItem of cardsData">
-      <div class="dive">
+      <div class="dive" *ngIf="activeStudents">
         <app-dashboard-cards
         [messages]="dashItem.messages" 
          [headerIcon]="dashItem.headerIcon"

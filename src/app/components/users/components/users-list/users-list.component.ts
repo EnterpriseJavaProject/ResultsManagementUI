@@ -38,15 +38,14 @@ export class UsersListComponent implements OnInit {
     this.userService.getAllUsers().subscribe(users => {
       this.data = users;
       this.dataSource = new MatTableDataSource(this.data)
-      this.activeUsers=this.data.filter(m=>m.status=="Active").length
-      this.inactiveUsers = this.data.length - this.activeUsers
-
     });
     }
     loadStats=()=>{
-      this.userService.getTotalUsers().subscribe(
+      this.userService.getUsersStats().subscribe(
         totusers =>{
-          this.totalUsers = totusers;
+          this.totalUsers = totusers.total;
+          this.activeUsers = totusers.active
+          this.inactiveUsers = totusers.inactive
           this.cardsData= [
             { messages:[{headerMessage:'Total Users',headerValue:this.totalUsers} ], headerIcon: 'fas fa-th', headerColor:'#ef5350'},
             { messages:[{headerMessage: 'Active Users',headerValue:this.activeUsers} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },

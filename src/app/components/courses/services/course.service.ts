@@ -34,4 +34,16 @@ export class CoursesService extends ResourceService {
   getTotalCourses(){
     return super.getResources(null,'courses/countCourses')  
     }
+  
+  
+  getCourseStats(){
+    return super.getResources(null,'courses/getAllCourses').pipe(
+      map((response:any) => {
+        let responseArray: any[] = response;
+        let activeArray = responseArray.filter(m=>m.status=="Active")
+        let inactiveArray =responseArray.filter(m=>m.status=="InActive")
+     
+        return ({total:responseArray.length,active:activeArray.length,inactive:inactiveArray.length});
+      })  )
+  }
 }

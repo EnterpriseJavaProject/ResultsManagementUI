@@ -2,7 +2,7 @@
 
     <h1>Course Modules List</h1>
     <ng-container *ngFor="let dashItem of cardsData">
-      <div class="dive">
+      <div class="dive" *ngIf="activeModules">
         <app-dashboard-cards
         [messages]="dashItem.messages" 
          [headerIcon]="dashItem.headerIcon"

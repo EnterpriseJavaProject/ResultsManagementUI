@@ -3,7 +3,7 @@ import { MatDialog, MatDialogConfig } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
-import { Router } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
 import { errorAlert, successAlert } from 'src/app/utils/constants';
 // import { ConfirmDialogModel, ConfirmationComponentComponent } from 'src/app/components/confirmation-component/confirmation-component.component';
@@ -18,45 +18,55 @@ import { ModuleFormComponent } from '../module-form/module-form.component';
 })
 export class ModuleListComponent implements OnInit {
   totalModules:any;
-  activeModules:number;
-  inactiveModules:number;
-  cardsData:CardItem[];
-
+  activeModules:any;
+  inactiveModules:any;
+  cardsData:CardItem[]
+ 
   data:any[]
   displayedColumns: string[] = ['module_name', 'course_name','staff_name', 'status','actions'];
   dataSource: MatTableDataSource<CourseModule>=new MatTableDataSource([]);
 
 
-
-  constructor(private moduleService:ModuleService, private router:Router,public dialog: MatDialog) { }
+  constructor(private moduleService:ModuleService, private router:Router,public dialog: MatDialog,private route:ActivatedRoute) { 
+  
+  }
   @ViewChild(MatPaginator, {static: false}) paginator: MatPaginator;
   @ViewChild(MatSort) sort: MatSort;
 
   ngOnInit(): void {
     this.loadData();
-    Promise.resolve().then(()=> 
-    this.loadStats() );
+    this.loadStats() 
+ 
   }
   loadData = () => {
     this.moduleService.getAllModules().subscribe(modules => {
       this.data = modules;
       this.dataSource = new MatTableDataSource(this.data)
-      this.activeModules=this.data.filter(m=>m.status=="Active").length
-      this.inactiveModules = this.data.length - this.activeModules
+      // this.activeModules=this.data.filter(m=>m.status=="Active").length
+      // this.inactiveModules = this.data.length - this.activeModules
 
     });
+  
     }
     loadStats=()=>{
-      this.moduleService.getTotalModules().subscribe(
-        totmoduless =>{
-          this.totalModules = totmoduless;
-          this.cardsData= [
-            { messages:[{headerMessage:'Total Modules',headerValue:this.totalModules} ], headerIcon: 'fas fa-th', headerColor:'#ef5350'},
-            { messages:[{headerMessage: 'Active Modules',headerValue:this.activeModules} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
-            { messages:[{headerMessage: 'Inactive Modules',headerValue:this.inactiveModules} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
-                
-          ];
-        })
+      this.moduleService.getModuleStats().subscribe(mod =>{
+        this.activeModules = mod.active
+        this.inactiveModules = mod.inactive
+        this.totalModules = mod.total;
+     
+        Promise.resolve().then(()=>  
+        this.cardsData= [
+          { messages:[{headerMessage:'Total Modules',headerValue:this.totalModules||0} ], headerIcon: 'fas fa-th', headerColor:'#ef5350'},
+          { messages:[{headerMessage: 'Active Modules',headerValue:this.activeModules||0} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },
+          { messages:[{headerMessage: 'Inactive Modules',headerValue:this.inactiveModules||0} ], headerIcon: 'fas fa-eye-slash',headerColor:'#50C8EF' },
+              
+        ]
+        );
+       })
+      
+    
+
+     
     }
     ngAfterViewInit() {
       if(this.dataSource){

@@ -48,16 +48,15 @@ export class StaffListComponent implements OnInit {
     this.staffService.getAllStaffs().subscribe(staffs => {
       this.data = staffs;
       this.dataSource = new MatTableDataSource(this.data)
-      this.activeStaff=this.data.filter(m=>m.status=="Active").length
-      this.inactiveStaff = this.data.length - this.activeStaff
-
     });
     }
 
     loadStats=()=>{
-      this.staffService.getTotalStaff().subscribe(
+      this.staffService.getStaffStats().subscribe(
         totstaffs =>{
-          this.totalStaff = totstaffs;
+          this.totalStaff = totstaffs.total;
+          this.activeStaff = totstaffs.active;
+          this.inactiveStaff = totstaffs.inactive
           this.cardsData= [
             { messages:[{headerMessage:'Total Staff',headerValue:this.totalStaff} ], headerIcon: 'fas fa-chalkboard-teacher', headerColor:'#ef5350'},
             { messages:[{headerMessage: 'Active Staff',headerValue:this.activeStaff} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },

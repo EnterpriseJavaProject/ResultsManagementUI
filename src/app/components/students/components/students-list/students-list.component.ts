@@ -35,8 +35,7 @@ export class StudentsListComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadData();
-    Promise.resolve().then(()=> 
-    this.loadStats() );
+    this.loadStats() 
 
   }
  
@@ -45,18 +44,17 @@ export class StudentsListComponent implements OnInit {
       this.studentService.getAllStudent().subscribe(stdudents => {
         this.data = stdudents;
         this.dataSource = new MatTableDataSource(this.data)
-        this.activeStudents=this.data.filter(m=>m.status=="Active").length
-        this.inactiveStudents = this.data.length - this.activeStudents
-        console.log(this.inactiveStudents)
-
+    
       });
 
     }
 
     loadStats=()=>{
-      this.studentService.getTotalStudents().subscribe(
+      this.studentService.getStudentStats().subscribe(
         totstudents =>{
-          this.totalStudent = totstudents;
+          this.totalStudent = totstudents.total;
+          this.activeStudents = totstudents.active;
+          this.inactiveStudents = totstudents.inactive
           this.cardsData= [
             { messages:[{headerMessage:'Total Students',headerValue:this.totalStudent} ], headerIcon: 'fas fa-user-graduate', headerColor:'#ef5350'},
             { messages:[{headerMessage: 'Active Students',headerValue:this.activeStudents} ], headerIcon: 'fas fa-eye',headerColor:'#68EF50' },

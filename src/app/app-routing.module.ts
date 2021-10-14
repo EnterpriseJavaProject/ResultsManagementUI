@@ -5,6 +5,7 @@ import { ModuleListComponent } from './components/course-modules/components/modu
 import { CourseInfoComponent } from './components/courses/components/course-info/course-info.component';
 import { CourseListComponent } from './components/courses/components/course-list/course-list.component';
 import { DashboardViewComponent } from './components/dashboard/components/dashboard-view/dashboard-view.component';
+import { SideBarComponent } from './components/layout/side-bar/side-bar.component';
 import { LoginComponent } from './components/login/login.component';
 import { PageNotFoundComponent } from './components/page-not-found/page-not-found.component';
 import { ReportsListComponent } from './components/reports/components/reports-list/reports-list.component';
@@ -20,28 +21,51 @@ import { UsersListComponent } from './components/users/components/users-list/use
 import { AuthGuard } from './guards/auth.guard';
 import { Role } from './interfaces/all-models';
 
+
+
 const routes: Routes = [
+    
+  //Site routes goes here 
+  { 
+      path: '', 
+      component: SideBarComponent,
+      children: [
+        {path: 'students-list' , component: StudentsListComponent , pathMatch: 'full'},
+        {path: 'courses-list' , component: CourseListComponent , pathMatch: 'full'},
+        {path: 'staff-list' , component: StaffListComponent , pathMatch: 'full'},
+        {path: 'course-info' , component: CourseInfoComponent , pathMatch: 'full'},
+        {path: 'staff-info' , component: StaffInfoComponent , pathMatch: 'full'},
+        {path: 'student-info' , component: StudentsInfoComponent , pathMatch: 'full'},
+        {path: 'module-info' , component: ModuleInfoComponent , pathMatch: 'full'},
+        {path: 'module-list' , component: ModuleListComponent , pathMatch: 'full' },
+        {path: 'upload-grade' , component: UploadGradeComponent , pathMatch: 'full'},
+        {path: 'reports' , component: ReportsListComponent , pathMatch: 'full'},
+        {path: 'dashboard' , component: DashboardViewComponent , pathMatch: 'full', canActivate:[AuthGuard]},
+        {path: 'users-list' , component: UsersListComponent , pathMatch: 'full'},
+        {path: 'users-info' , component: UsersInfoComponent , pathMatch: 'full'},
+      
+      ]
+  },
+  
+  // // App routes goes here here
+  // { 
+  //     path: '',
+  //     component: AppLayoutComponent, 
+  //     children: [
+  //       { path: 'dashboard', component: DashboardComponent },
+  //       { path: 'profile', component: ProfileComponent }
+  //     ]
+  // },
+
+  //no layout routes
   {path: 'login' , component: LoginComponent , pathMatch: 'full'},
-  {path: 'students-list' , component: StudentsListComponent , pathMatch: 'full'},
-  {path: 'courses-list' , component: CourseListComponent , pathMatch: 'full'},
-  {path: 'staff-list' , component: StaffListComponent , pathMatch: 'full'},
-  {path: 'course-info' , component: CourseInfoComponent , pathMatch: 'full'},
-  {path: 'staff-info' , component: StaffInfoComponent , pathMatch: 'full'},
-  {path: 'student-info' , component: StudentsInfoComponent , pathMatch: 'full'},
-  {path: 'module-info' , component: ModuleInfoComponent , pathMatch: 'full'},
-  {path: 'module-list' , component: ModuleListComponent , pathMatch: 'full'},
-  {path: 'upload-grade' , component: UploadGradeComponent , pathMatch: 'full'},
-  {path: 'reports' , component: ReportsListComponent , pathMatch: 'full'},
-  {path: 'dashboard' , component: DashboardViewComponent , pathMatch: 'full', canActivate:[AuthGuard]},
-  // {path: 'profile' , component: UserProfileComponent , pathMatch: 'full'},
   {path: 'student-result' , component: StudentsResultComponent , pathMatch: 'full'},
   {path: 'search-grade' , component: SearchGradeComponent , pathMatch: 'full'},
-  {path: 'users-list' , component: UsersListComponent , pathMatch: 'full'},
-  {path: 'users-info' , component: UsersInfoComponent , pathMatch: 'full'},
 
   
   { path: '', redirectTo: '/login', pathMatch: 'full' },
    { path: '**', component: PageNotFoundComponent }
+  // otherwise redirect to home
 ];
 
 @NgModule({

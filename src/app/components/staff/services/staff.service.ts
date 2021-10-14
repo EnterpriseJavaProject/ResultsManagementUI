@@ -43,4 +43,15 @@ export class StaffService extends ResourceService {
           return staffArray.filter(m=>m.usertype=="Instructor") as Staff[]
         }))
     }
+
+    getStaffStats(){
+      return super.getResources(null,'staffs/getAllStaffs').pipe(
+        map((response:any) => {
+          let responseArray: any[] = response;
+          let activeArray = responseArray.filter(m=>m.status=="Active")
+          let inactiveArray =responseArray.filter(m=>m.status=="InActive")
+       
+          return ({total:responseArray.length,active:activeArray.length,inactive:inactiveArray.length});
+        })  )
+    }
 }
